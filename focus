@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เตรียมเควสต์ • ตะลุยสอบเข้า ม.ต้น เตรียมอุดมฯ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Thai+2:wght@500;600;700;800&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#7C5CE6; --brand-deep:#5B3FC0;
+    --gold:#FFC23C; --coral:#FF6B6B; --mint:#2BC4A8; --sky:#4D9DE0; --orange:#FF9F40;
+    --ink:#2B2350; --ink-soft:#6B6490; --line:#ECE8FB;
+    --bg:#F4F1FF; --card:#FFFFFF; --ok:#2BC4A8; --no:#FF6B6B;
+    --shadow:0 10px 30px rgba(90,63,192,.12); --r:24px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Sarabun',sans-serif; color:var(--ink);
+    background:radial-gradient(900px 500px at 10% -5%, #E8E2FF 0%, transparent 55%),
+      radial-gradient(800px 500px at 110% 0%, #FFE9DA 0%, transparent 50%), var(--bg);
+    min-height:100vh; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.display{font-family:'Baloo Thai 2',sans-serif; font-weight:800; letter-spacing:.2px}
+  button{font-family:inherit; cursor:pointer; border:none; background:none}
+  .wrap{max-width:920px; margin:0 auto; padding:18px 18px 80px}
+
+  .topbar{display:flex; align-items:center; gap:14px; background:var(--card); border-radius:var(--r);
+    padding:14px 18px; box-shadow:var(--shadow); margin-bottom:18px; border:2px solid #fff;}
+  .mascot{font-size:42px; line-height:1; filter:drop-shadow(0 4px 6px rgba(124,92,230,.35)); animation:bob 3s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-6px) rotate(3deg)}}
+  .who{flex:1; min-width:0}
+  .who .hi{font-size:13px; color:var(--ink-soft)}
+  .who .nm{font-family:'Baloo Thai 2'; font-weight:700; font-size:18px; display:flex; align-items:center; gap:8px}
+  .lvpill{background:linear-gradient(135deg,var(--brand),var(--brand-deep)); color:#fff; font-family:'Baloo Thai 2'; font-weight:700; font-size:13px; padding:3px 12px; border-radius:999px}
+  .xpwrap{margin-top:6px}
+  .xpbar{height:10px; background:#EDE9FB; border-radius:999px; overflow:hidden}
+  .xpfill{height:100%; background:linear-gradient(90deg,var(--gold),#FFA600); border-radius:999px; width:0; transition:width .6s cubic-bezier(.2,.9,.3,1)}
+  .xptext{font-size:11px; color:var(--ink-soft); margin-top:3px}
+  .stat{display:flex; flex-direction:column; align-items:center; min-width:52px}
+  .stat b{font-family:'Baloo Thai 2'; font-size:20px; line-height:1.1}
+  .stat span{font-size:10px; color:var(--ink-soft)}
+
+  .screen{display:none; animation:fade .35s ease both}
+  .screen.active{display:block}
+  @keyframes fade{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+
+  .hero{background:linear-gradient(135deg,#7C5CE6,#5B3FC0); color:#fff; border-radius:var(--r);
+    padding:22px 24px; box-shadow:var(--shadow); position:relative; overflow:hidden; margin-bottom:18px;}
+  .hero::after{content:"✦ ✦ ✦"; position:absolute; right:-6px; top:8px; font-size:60px; opacity:.13; letter-spacing:8px}
+  .hero h1{margin:0 0 4px; font-size:26px}
+  .hero p{margin:0 0 16px; opacity:.92; font-size:14px}
+  .herobtns{display:flex; gap:10px; flex-wrap:wrap}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-family:'Baloo Thai 2'; font-weight:700;
+    background:var(--gold); color:#5a3d00; padding:12px 20px; border-radius:14px; font-size:16px;
+    box-shadow:0 6px 0 #d99700; transition:transform .08s, box-shadow .08s;}
+  .btn:active{transform:translateY(4px); box-shadow:0 2px 0 #d99700}
+  .btn.ghost{background:rgba(255,255,255,.18); color:#fff; box-shadow:0 6px 0 rgba(0,0,0,.18)}
+  .btn.ghost:active{box-shadow:0 2px 0 rgba(0,0,0,.18)}
+  .btn.lg{font-size:18px; padding:14px 26px}
+
+  .sectitle{font-size:18px; margin:22px 4px 12px; display:flex; align-items:center; gap:8px}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px}
+  .subj{background:var(--card); border-radius:20px; padding:16px; box-shadow:var(--shadow);
+    border:2px solid #fff; text-align:left; transition:transform .12s; position:relative; overflow:hidden;}
+  .subj:hover{transform:translateY(-4px)}
+  .subj .ic{width:48px; height:48px; border-radius:14px; display:grid; place-items:center; font-size:26px; color:#fff}
+  .subj h3{margin:12px 0 2px; font-size:17px}
+  .subj .meta{font-size:12px; color:var(--ink-soft)}
+  .pbar{height:7px; background:#EFECFA; border-radius:999px; margin-top:10px; overflow:hidden}
+  .pfill{height:100%; border-radius:999px; width:0; transition:width .5s}
+  .ministars{font-size:12px; margin-top:8px; letter-spacing:2px}
+
+  .badgestrip{display:flex; gap:10px; overflow-x:auto; padding:4px 2px 8px}
+  .bchip{flex:0 0 auto; width:86px; text-align:center; background:var(--card); border-radius:16px; padding:12px 8px; box-shadow:var(--shadow); border:2px solid #fff}
+  .bchip .be{font-size:30px; filter:grayscale(1); opacity:.35}
+  .bchip.on .be{filter:none; opacity:1}
+  .bchip small{display:block; font-size:10.5px; color:var(--ink-soft); margin-top:6px; line-height:1.2; font-weight:600}
+  .bchip.on small{color:var(--ink)}
+
+  .back{display:inline-flex; align-items:center; gap:6px; color:var(--brand); font-weight:700; font-family:'Baloo Thai 2'; font-size:15px; padding:6px 2px; margin-bottom:8px}
+  .subhead{border-radius:var(--r); padding:22px 24px; color:#fff; box-shadow:var(--shadow); margin-bottom:18px}
+  .subhead h1{margin:0; font-size:24px; display:flex; align-items:center; gap:12px}
+  .subhead p{margin:6px 0 0; opacity:.92; font-size:14px}
+  .tipcard{background:var(--card); border-radius:18px; padding:16px 18px; box-shadow:var(--shadow); margin-bottom:12px; border:2px solid #fff}
+  .tipcard h3{margin:0 0 10px; font-size:16px; display:flex; align-items:center; gap:8px}
+  .tipcard ul{margin:0; padding-left:4px; list-style:none}
+  .tipcard li{padding:7px 0 7px 28px; position:relative; font-size:14.5px; line-height:1.5; border-top:1px dashed var(--line)}
+  .tipcard li:first-child{border-top:none}
+  .tipcard li::before{content:"💡"; position:absolute; left:0; top:6px}
+
+  .lesson{background:var(--card); border-radius:18px; padding:16px 18px; box-shadow:var(--shadow); border:2px solid #fff; margin-bottom:12px}
+  .lesson h3{margin:0 0 10px; font-size:16px}
+  .lsvg{background:#FAF8FF; border:2px solid var(--line); border-radius:14px; padding:12px; display:flex; justify-content:center; align-items:center; margin-bottom:10px}
+  .lsvg svg{height:auto}
+  .lbody{font-size:14.5px; line-height:1.7}
+  .lbody b{color:var(--brand-deep)}
+  .skiplink{display:inline-flex; align-items:center; gap:6px; padding:7px 14px; border-radius:999px; background:#fff; border:2px solid var(--line); font-family:'Baloo Thai 2'; font-weight:700; font-size:13px; color:var(--brand)}
+
+  .ctrlrow{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:12px}
+  .ctrllabel{font-size:13px; color:var(--ink-soft); font-weight:600; margin-right:4px}
+  .chip{padding:8px 16px; border-radius:999px; background:#fff; border:2px solid var(--line);
+    font-family:'Baloo Thai 2'; font-weight:700; font-size:14px; color:var(--ink-soft); transition:.12s}
+  .chip.active{background:var(--brand); color:#fff; border-color:var(--brand)}
+  .toggle{display:flex; align-items:center; gap:8px; background:#fff; border:2px solid var(--line); border-radius:999px; padding:8px 14px; font-weight:600; font-size:14px}
+  .toggle input{width:18px; height:18px; accent-color:var(--brand)}
+
+  .qtop{display:flex; align-items:center; gap:12px; margin-bottom:14px}
+  .qprog{flex:1; height:10px; background:#EAE5FB; border-radius:999px; overflow:hidden}
+  .qprog i{display:block; height:100%; background:linear-gradient(90deg,var(--brand),var(--brand-deep)); border-radius:999px; transition:width .4s}
+  .qcount{font-family:'Baloo Thai 2'; font-weight:700; color:var(--ink-soft); font-size:14px}
+  .streakflame{font-family:'Baloo Thai 2'; font-weight:700; font-size:14px; color:var(--orange); display:flex; align-items:center; gap:3px; opacity:0; transition:opacity .3s}
+  .streakflame.show{opacity:1}
+  .timer{display:none; align-items:center; gap:7px; font-family:'Baloo Thai 2'; font-weight:800; font-size:15px; color:var(--brand-deep); background:#fff; border:2px solid var(--line); border-radius:999px; padding:5px 12px}
+  .timer.show{display:flex}
+  .timer.warn{color:#fff; background:var(--no); border-color:var(--no); animation:pulse .6s infinite}
+  @keyframes pulse{50%{transform:scale(1.06)}}
+  .qcard{background:var(--card); border-radius:var(--r); padding:24px; box-shadow:var(--shadow); border:2px solid #fff}
+  .qtagrow{display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap}
+  .qtag{display:inline-block; font-size:12px; font-weight:700; color:#fff; padding:3px 12px; border-radius:999px; font-family:'Baloo Thai 2'}
+  .qdiff{display:inline-block; font-size:12px; font-weight:700; padding:3px 12px; border-radius:999px; font-family:'Baloo Thai 2'; background:#F0ECFD; color:var(--brand)}
+  .qtext{font-size:19px; font-weight:600; line-height:1.5; margin:0 0 18px}
+  .opts{display:grid; gap:10px}
+  .opt{text-align:left; background:#F8F6FF; border:2px solid #EAE4FB; border-radius:14px; padding:14px 16px;
+    font-size:16px; color:var(--ink); display:flex; align-items:center; gap:12px; transition:.12s; width:100%;}
+  .opt:hover:not(:disabled){border-color:var(--brand); transform:translateX(3px)}
+  .opt .key{width:28px; height:28px; border-radius:9px; background:#fff; border:2px solid #E2DBF7; display:grid; place-items:center; font-family:'Baloo Thai 2'; font-weight:700; font-size:14px; flex:0 0 auto}
+  .opt.correct{background:#E5FBF4; border-color:var(--ok)}
+  .opt.correct .key{background:var(--ok); color:#fff; border-color:var(--ok)}
+  .opt.wrong{background:#FFECEC; border-color:var(--no)}
+  .opt.wrong .key{background:var(--no); color:#fff; border-color:var(--no)}
+  .opt:disabled{cursor:default}
+
+  .explain{margin-top:16px; border-radius:16px; overflow:hidden; max-height:0; opacity:0; transition:max-height .4s ease, opacity .3s}
+  .explain.show{max-height:700px; opacity:1; padding:16px; background:#FFF9EC; border:2px solid #FFE6AE}
+  .explain .verdict{font-family:'Baloo Thai 2'; font-weight:800; font-size:18px; display:flex; align-items:center; gap:8px; margin-bottom:8px}
+  .explain .sol{font-size:15px; line-height:1.6}
+  .explain .tech{margin-top:12px; background:#fff; border-radius:12px; padding:12px 14px; font-size:14px; line-height:1.55; border:1px dashed #FFCF73}
+  .explain .tech b{color:var(--orange)}
+  .qfoot{margin-top:18px; display:flex; justify-content:flex-end}
+
+  .result{background:var(--card); border-radius:var(--r); padding:30px 26px; box-shadow:var(--shadow); text-align:center; border:2px solid #fff}
+  .result .big{font-size:64px; line-height:1; margin-bottom:8px}
+  .result h1{margin:0 0 4px; font-size:28px}
+  .result .scoreline{font-size:18px; color:var(--ink-soft); margin-bottom:16px}
+  .bigstars{font-size:40px; letter-spacing:6px; margin:6px 0 16px}
+  .rwgrid{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:18px 0}
+  .rw{background:#F6F3FF; border-radius:16px; padding:14px 20px; min-width:96px}
+  .rw b{display:block; font-family:'Baloo Thai 2'; font-size:24px}
+  .rw span{font-size:12px; color:var(--ink-soft)}
+  .unlocked{margin:14px 0; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+  .unlocked .u{background:linear-gradient(135deg,#FFF1C9,#FFE08A); border-radius:14px; padding:10px 14px; font-weight:700; display:flex; align-items:center; gap:8px; animation:pop .5s both}
+  @keyframes pop{0%{transform:scale(.4); opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1); opacity:1}}
+  .rbtns{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:10px}
+  .rbtns .btn.alt{background:var(--brand); color:#fff; box-shadow:0 6px 0 var(--brand-deep)}
+  .rbtns .btn.alt:active{box-shadow:0 2px 0 var(--brand-deep)}
+
+  .wcard{background:var(--card); border-radius:20px; padding:18px 20px; box-shadow:var(--shadow); border:2px solid #fff; margin-bottom:14px}
+  .wcard .whead{display:flex; align-items:center; gap:10px; margin-bottom:4px}
+  .wcard .whead .wic{width:38px; height:38px; border-radius:11px; display:grid; place-items:center; font-size:20px; color:#fff}
+  .wcard .whead h3{margin:0; font-size:17px; flex:1}
+  .wcard .whead .wacc{font-family:'Baloo Thai 2'; font-weight:800; font-size:18px}
+  .focus{font-size:13px; background:#FFF3F3; color:#C0392B; border-radius:10px; padding:8px 12px; margin:8px 0 12px; line-height:1.5}
+  .focus.good{background:#E9FBF4; color:#127A5E}
+  .trow{display:flex; align-items:center; gap:10px; padding:6px 0}
+  .tname{flex:0 0 38%; font-size:13.5px}
+  .tbar{flex:1; height:9px; background:#EFECFA; border-radius:999px; overflow:hidden}
+  .tbar i{display:block; height:100%; border-radius:999px}
+  .tpct{flex:0 0 64px; text-align:right; font-size:12.5px; color:var(--ink-soft)}
+  .emptybox{text-align:center; color:var(--ink-soft); padding:40px 20px; font-size:15px; line-height:1.7}
+
+  .toast{position:fixed; left:50%; top:24px; transform:translateX(-50%) translateY(-120px); background:linear-gradient(135deg,var(--gold),#FF9A00); color:#5a3d00; font-family:'Baloo Thai 2'; font-weight:800; padding:14px 26px; border-radius:16px; box-shadow:0 12px 30px rgba(255,150,0,.4); z-index:60; transition:transform .5s cubic-bezier(.2,1.2,.3,1); font-size:18px; display:flex; align-items:center; gap:10px}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .confetti{position:fixed; inset:0; pointer-events:none; z-index:55; overflow:hidden}
+  .conf{position:absolute; width:10px; height:14px; border-radius:2px; top:-20px; animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+
+  .modal{position:fixed; inset:0; background:rgba(43,35,80,.5); display:none; place-items:center; z-index:70; padding:20px; backdrop-filter:blur(3px)}
+  .modal.show{display:grid}
+  .mbox{background:#fff; border-radius:var(--r); padding:28px; max-width:380px; width:100%; box-shadow:var(--shadow); text-align:center; animation:pop .4s both}
+  .mbox h2{margin:0 0 6px; font-size:22px}
+  .mbox p{margin:0 0 16px; color:var(--ink-soft); font-size:14px}
+  .mbox input{width:100%; padding:13px 16px; border:2px solid var(--line); border-radius:14px; font-family:'Sarabun'; font-size:16px; text-align:center; margin-bottom:14px}
+  .mbox input:focus{outline:none; border-color:var(--brand)}
+
+  .footnote{text-align:center; color:var(--ink-soft); font-size:12px; margin-top:26px; line-height:1.6}
+  :focus-visible{outline:3px solid var(--brand); outline-offset:2px; border-radius:6px}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important; transition:none !important}}
+  @media (max-width:560px){ .hero h1{font-size:22px} .qtext{font-size:17px} .stat:nth-child(4){display:none} .tname{flex-basis:46%} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="mascot" id="mascot">🦉</div>
+    <div class="who">
+      <div class="hi">สวัสดี ยินดีต้อนรับสู่</div>
+      <div class="nm"><span id="uname">นักเรียน</span> <span class="lvpill" id="lvpill">Lv.1</span></div>
+      <div class="xpwrap"><div class="xpbar"><div class="xpfill" id="xpfill"></div></div>
+      <div class="xptext" id="xptext">0 / 100 XP</div></div>
+    </div>
+    <div class="stat"><b id="stStars">0</b><span>⭐ ดาว</span></div>
+    <div class="stat"><b id="stBadges">0</b><span>🏅 เหรียญ</span></div>
+    <div class="stat"><b id="stStreak">1</b><span>🔥 วัน</span></div>
+  </div>
+
+  <div class="screen active" id="home">
+    <div class="hero">
+      <h1>ตะลุยสอบเข้า ม.ต้น เตรียมอุดมฯ 🎯</h1>
+      <p>ฝึกข้อสอบครบ 5 วิชา <b id="totalQ">200</b>+ ข้อ • เรียนสรุปบทเรียนพร้อมภาพก่อน • พร้อมเฉลย วิธีคิด และเทคนิค • เลือกระดับความยาก • โหมดจับเวลาแบบสนามสอบ • ดูจุดที่ต้องเน้น</p>
+      <div class="herobtns">
+        <button class="btn" onclick="startDaily(false)">⚡ ภารกิจรวมมิตร</button>
+        <button class="btn ghost" onclick="startDaily(true)">⏱️ จำลองสนามสอบ</button>
+        <button class="btn ghost" onclick="go('weak')">📊 จุดที่ต้องเน้น</button>
+      </div>
+    </div>
+    <div class="sectitle">📚 เลือกวิชาที่อยากฝึก</div>
+    <div class="grid" id="subjGrid"></div>
+    <div class="sectitle">🏅 เหรียญรางวัลของฉัน <span id="badgeCount" style="font-size:13px;color:var(--ink-soft);font-weight:400"></span></div>
+    <div class="badgestrip" id="badgeStrip"></div>
+    <div class="footnote">
+      เนื้อหาออกแบบสำหรับน้อง ป.6 เตรียมสอบเข้า ม.1 • คณิต วิทย์ ไทย อังกฤษ สังคม<br>
+      ความก้าวหน้าถูกบันทึกอัตโนมัติในเครื่องนี้ กลับมาเล่นต่อได้เรื่อย ๆ
+    </div>
+    <div class="footnote" id="globalReset" style="display:none">
+      <button onclick="resetAll()" style="color:var(--ink-soft); font-size:12px; text-decoration:underline; background:none">เริ่มต้นใหม่ทั้งหมด (ล้างความก้าวหน้า)</button>
+    </div>
+  </div>
+
+  <div class="screen" id="subject">
+    <button class="back" onclick="go('home')">← กลับหน้าหลัก</button>
+    <div class="subhead" id="subhead"></div>
+    <div style="text-align:right;margin-bottom:8px"><button class="skiplink" onclick="document.getElementById('startQuizBtn').scrollIntoView({behavior:'smooth'})">⏭️ ข้ามไปทำแบบฝึกหัด</button></div>
+    <div class="sectitle" style="margin:4px 4px 12px">📘 สรุปบทเรียน — เรียนรู้ก่อนเริ่ม</div>
+    <div id="lessonWrap"></div>
+    <div class="tipcard"><h3>🧠 เทคนิคเด็ด ก่อนลงสนาม</h3><ul id="tipList"></ul></div>
+    <div class="ctrlrow" style="margin-top:14px">
+      <span class="ctrllabel">ระดับ:</span>
+      <button class="chip active" data-diff="all" onclick="setDiff('all',this)">ทั้งหมด</button>
+      <button class="chip" data-diff="e" onclick="setDiff('e',this)">ง่าย</button>
+      <button class="chip" data-diff="m" onclick="setDiff('m',this)">ปานกลาง</button>
+      <button class="chip" data-diff="h" onclick="setDiff('h',this)">ยาก</button>
+    </div>
+    <div class="ctrlrow">
+      <label class="toggle"><input type="checkbox" id="timedToggle"> ⏱️ โหมดจับเวลา (สนามสอบ)</label>
+      <span class="ctrllabel" id="poolInfo"></span>
+    </div>
+    <div style="text-align:center; margin-top:14px">
+      <button class="btn lg" id="startQuizBtn">🚀 เริ่มทำแบบฝึกหัด</button>
+    </div>
+  </div>
+
+  <div class="screen" id="quiz">
+    <div class="qtop">
+      <span class="qcount" id="qcount">ข้อ 1/10</span>
+      <div class="qprog"><i id="qprog"></i></div>
+      <span class="timer" id="timer">⏱️ <span id="timerN">45</span></span>
+      <span class="streakflame" id="qflame">🔥<span id="qflameN">0</span></span>
+    </div>
+    <div class="qcard">
+      <div class="qtagrow"><span class="qtag" id="qtag">วิชา</span><span class="qdiff" id="qdiff">ระดับ</span></div>
+      <p class="qtext" id="qtext">คำถาม...</p>
+      <div class="opts" id="opts"></div>
+      <div class="explain" id="explain">
+        <div class="verdict" id="verdict"></div>
+        <div class="sol" id="sol"></div>
+        <div class="tech" id="tech"></div>
+      </div>
+      <div class="qfoot"><button class="btn" id="nextBtn" style="display:none" onclick="nextQ()">ข้อต่อไป →</button></div>
+    </div>
+  </div>
+
+  <div class="screen" id="result">
+    <div class="result">
+      <div class="big" id="rEmoji">🎉</div>
+      <h1 id="rTitle">เยี่ยมมาก!</h1>
+      <div class="scoreline" id="rScore"></div>
+      <div class="bigstars" id="rStars"></div>
+      <div class="rwgrid">
+        <div class="rw"><b id="rxp">+0</b><span>XP ที่ได้</span></div>
+        <div class="rw"><b id="racc">0%</b><span>ความแม่นยำ</span></div>
+        <div class="rw"><b id="rbest">0</b><span>สตรีคสูงสุด</span></div>
+      </div>
+      <div class="unlocked" id="unlocked"></div>
+      <div class="rbtns">
+        <button class="btn alt" id="retryBtn">🔁 ทำอีกครั้ง</button>
+        <button class="btn ghost" style="color:var(--brand);box-shadow:0 6px 0 #d7cdf6;background:#EDE7FB" onclick="go('weak')">📊 ดูจุดอ่อน</button>
+        <button class="btn" onclick="go('home')">🏠 หน้าหลัก</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="weak">
+    <button class="back" onclick="go('home')">← กลับหน้าหลัก</button>
+    <div class="hero" style="background:linear-gradient(135deg,#FF9F40,#E8702A)">
+      <h1>📊 จุดที่ต้องเน้น</h1>
+      <p>ดูว่าหัวข้อไหนยังอ่อน จะได้ทุ่มเวลาฝึกให้ตรงจุด — ยิ่งทำข้อสอบมาก ข้อมูลยิ่งแม่น</p>
+    </div>
+    <div id="weakBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="nameModal">
+  <div class="mbox">
+    <div style="font-size:46px">🦉</div>
+    <h2>สวัสดีจ้า! เราคือน้องฮูก</h2>
+    <p>จะมาเป็นเพื่อนติวให้ตะลุยข้อสอบ บอกชื่อเล่นหน่อยได้ไหม?</p>
+    <input id="nameInput" maxlength="16" placeholder="พิมพ์ชื่อเล่นของหนู">
+    <button class="btn lg" style="width:100%; justify-content:center" onclick="saveName()">ไปลุยกันเลย! 🚀</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="confetti" id="confettiBox"></div>
+
+<script>
+/* ============================================================
+   คลังข้อสอบ — ระดับสอบเข้า ม.1  (d: e=ง่าย m=ปานกลาง h=ยาก)
+   วิธีเพิ่มข้อสอบ: ก็อปปี้ 1 บรรทัด {q,c,a,d,topic,s,t} วางต่อใน qs:[ ... ] ของวิชานั้น
+   a = ตำแหน่งคำตอบถูกใน c (เริ่มนับ 0) ระบบจะสลับตัวเลือกให้เองตอนเล่น
+   ============================================================ */
+const SUBJECTS = {
+math:{ name:"คณิตศาสตร์", emoji:"🔢", color:"#4D9DE0",
+ lessons:[
+  {t:"➗ ร้อยละ (เปอร์เซ็นต์)", svg:`<svg viewBox="0 0 320 112" width="100%" style="max-width:360px"><text x="160" y="15" text-anchor="middle" font-size="12" fill="#5B3FC0" font-weight="bold">ราคาเต็ม = 100% (10 ช่อง)</text><rect x="10" y="26" width="28" height="34" rx="4" fill="#FF6B6B"/><rect x="40" y="26" width="28" height="34" rx="4" fill="#FF6B6B"/><rect x="70" y="26" width="28" height="34" rx="4" fill="#2BC4A8"/><rect x="100" y="26" width="28" height="34" rx="4" fill="#2BC4A8"/><rect x="130" y="26" width="28" height="34" rx="4" fill="#2BC4A8"/><rect x="160" y="26" width="28" height="34" rx="4" fill="#2BC4A8"/><rect x="190" y="26" width="28" height="34" rx="4" fill="#2BC4A8"/><rect x="220" y="26" width="28" height="34" rx="4" fill="#2BC4A8"/><rect x="250" y="26" width="28" height="34" rx="4" fill="#2BC4A8"/><rect x="280" y="26" width="28" height="34" rx="4" fill="#2BC4A8"/><text x="39" y="80" text-anchor="middle" font-size="12" fill="#FF6B6B" font-weight="bold">ลด 20%</text><text x="189" y="80" text-anchor="middle" font-size="12" fill="#1c9b85" font-weight="bold">จ่าย 80%</text><text x="160" y="102" text-anchor="middle" font-size="12" fill="#6B6490">500 × 0.8 = 400 บาท</text></svg>`,
+   b:`ร้อยละ คือการเทียบเป็นส่วนใน 100 ส่วน เช่น 20% = 20 ใน 100<br><b>เคล็ดลับ:</b> ลด 20% ก็คือ "จ่าย 80%" → คูณราคาด้วย 0.8 ได้เลย เช่น 500 × 0.8 = 400 บาท`},
+  {t:"🍕 เศษส่วน", svg:`<svg viewBox="0 0 300 104" width="100%" style="max-width:340px"><text x="150" y="15" text-anchor="middle" font-size="12" fill="#5B3FC0" font-weight="bold">แบ่งเป็น 4 ส่วนเท่ากัน เอามา 3 ส่วน</text><rect x="14" y="28" width="64" height="42" rx="6" fill="#4D9DE0"/><rect x="82" y="28" width="64" height="42" rx="6" fill="#4D9DE0"/><rect x="150" y="28" width="64" height="42" rx="6" fill="#4D9DE0"/><rect x="218" y="28" width="64" height="42" rx="6" fill="#EAF2FB" stroke="#B9D4ED"/><text x="150" y="94" text-anchor="middle" font-size="16" fill="#2B2350" font-weight="bold">= 3/4</text></svg>`,
+   b:`เศษส่วนบอกว่าเราแบ่งของเป็นกี่ส่วน (<b>ตัวส่วน</b>) แล้วเอามากี่ส่วน (<b>ตัวเศษ</b>)<br>3/4 = แบ่งเป็น 4 ส่วน เอามา 3 ส่วน<br><b>สำคัญ:</b> เวลาบวกลบ ต้องทำ "ตัวส่วน" ให้เท่ากันก่อนเสมอ`},
+  {t:"📐 พื้นที่รูปเรขาคณิต", svg:`<svg viewBox="0 0 340 152" width="100%" style="max-width:360px"><rect x="30" y="38" width="120" height="76" rx="6" fill="#DCEBF9" stroke="#4D9DE0" stroke-width="2"/><text x="90" y="30" text-anchor="middle" font-size="11" fill="#4D9DE0">ยาว</text><text x="20" y="80" text-anchor="middle" font-size="11" fill="#4D9DE0" transform="rotate(-90 20 80)">กว้าง</text><text x="90" y="132" text-anchor="middle" font-size="11" fill="#6B6490">กว้าง × ยาว</text><polygon points="200,114 320,114 250,42" fill="#FFE7D6" stroke="#FF9F40" stroke-width="2"/><line x1="250" y1="42" x2="250" y2="114" stroke="#FF9F40" stroke-dasharray="4 3"/><text x="256" y="84" font-size="11" fill="#E8702A">สูง</text><text x="260" y="132" text-anchor="middle" font-size="11" fill="#6B6490">½ × ฐาน × สูง</text></svg>`,
+   b:`พื้นที่สี่เหลี่ยมผืนผ้า = <b>กว้าง × ยาว</b><br>พื้นที่สามเหลี่ยม = <b>½ × ฐาน × สูง</b> (อย่าลืมครึ่งหนึ่ง!)<br>พื้นที่จัตุรัส = <b>ด้าน × ด้าน</b>`}
+ ],
+ tips:[
+  "ร้อยละ: ลด x% = จ่าย (100−x)% ของราคาเต็ม คูณทีเดียวจบ (ลด 15% → ×0.85)",
+  "โจทย์ปัญหา ตั้งตัวแปร x แทนสิ่งที่ถาม แล้วแปลงประโยคเป็นสมการทีละท่อน",
+  "เศษส่วนบวกลบ ต้องทำส่วนให้เท่ากันด้วย ค.ร.น. ก่อนเสมอ",
+  "แบบรูปตัวเลข ลองหาผลต่างของแต่ละคู่ก่อน มักเจอกฎซ่อนอยู่"],
+ qs:[
+  {q:"ลด 20% ของราคา 500 บาท ต้องจ่ายกี่บาท?",c:["400 บาท","100 บาท","480 บาท","450 บาท"],a:0,d:"e",topic:"ร้อยละ",s:"จ่าย 80% ของ 500 = 500×0.8 = 400 บาท",t:"ลด 20% คือจ่าย 80% คูณทีเดียวจบ"},
+  {q:"3/5 + 1/5 มีค่าเท่าใด?",c:["4/5","4/10","2/5","4/25"],a:0,d:"e",topic:"เศษส่วน",s:"ส่วนเท่ากันแล้ว บวกเฉพาะเศษ 3+1=4 ได้ 4/5",t:"ส่วนเท่ากันให้บวกเศษอย่างเดียว ส่วนคงเดิม"},
+  {q:"สี่เหลี่ยมจัตุรัสด้านยาว 7 ซม. มีพื้นที่กี่ตารางเซนติเมตร?",c:["49","14","28","56"],a:0,d:"e",topic:"เรขาคณิต",s:"พื้นที่จัตุรัส = ด้าน×ด้าน = 7×7 = 49",t:"จัตุรัสทุกด้านเท่ากัน พื้นที่ = ด้านยกกำลังสอง"},
+  {q:"0.5 + 0.25 เท่ากับเท่าใด?",c:["0.75","0.7","0.30","0.55"],a:0,d:"e",topic:"ทศนิยม",s:"จัดหลักให้ตรงกัน 0.50 + 0.25 = 0.75",t:"บวกทศนิยม ให้จุดทศนิยมตรงกันก่อน"},
+  {q:"ค.ร.น. ของ 3 และ 5 คือเท่าใด?",c:["15","8","30","1"],a:0,d:"e",topic:"จำนวน",s:"พหุคูณร่วมที่น้อยที่สุดของ 3 และ 5 คือ 15",t:"ถ้าสองจำนวนไม่มีตัวประกอบร่วม ค.ร.น.=ผลคูณของทั้งสอง"},
+  {q:"ถ้า x + 7 = 12 แล้ว x เท่ากับเท่าใด?",c:["5","19","7","6"],a:0,d:"e",topic:"สมการ",s:"ย้าย 7 ไปลบ: x = 12 − 7 = 5",t:"ตัวบวกข้ามไปอีกข้างกลายเป็นลบ"},
+  {q:"แบบรูปนี้ตัวถัดไปคือเลขใด: 5, 10, 15, 20, ___",c:["25","24","30","21"],a:0,d:"e",topic:"แบบรูป",s:"เพิ่มทีละ 5 → 20 + 5 = 25",t:"หาผลต่างคงที่ก่อน แล้วบวกต่อ"},
+  {q:"อัตราส่วน 2 : 3 ถ้าตัวหน้าเป็น 8 ตัวหลังเป็นเท่าใด?",c:["12","6","9","16"],a:0,d:"e",topic:"อัตราส่วน",s:"8 = 2×4 (ตัวคูณ 4) ตัวหลัง = 3×4 = 12",t:"หาตัวคูณจากฝั่งที่รู้ค่า แล้วคูณอีกฝั่ง"},
+  {q:"ห.ร.ม. ของ 8 และ 12 คือเท่าใด?",c:["4","2","24","6"],a:0,d:"e",topic:"จำนวน",s:"ตัวประกอบร่วมที่มากที่สุดของ 8 และ 12 คือ 4",t:"ห.ร.ม.=ตัวหารร่วมมากสุด, ค.ร.น.=ตัวคูณร่วมน้อยสุด อย่าสับสน"},
+  {q:"1 ชั่วโมง 30 นาที คิดเป็นกี่นาที?",c:["90 นาที","130 นาที","60 นาที","75 นาที"],a:0,d:"e",topic:"การวัด",s:"1 ชั่วโมง = 60 นาที + 30 = 90 นาที",t:"แปลงชั่วโมงเป็นนาทีคูณ 60 ก่อนค่อยบวก"},
+  {q:"ครึ่งหนึ่งของมุม 90 องศา เท่ากับกี่องศา?",c:["45 องศา","30 องศา","60 องศา","180 องศา"],a:0,d:"e",topic:"มุม",s:"90 ÷ 2 = 45 องศา",t:"มุม 90 คือมุมฉาก ครึ่งหนึ่งได้ 45"},
+  {q:"3/4 ของ 60 เท่ากับเท่าใด?",c:["45","20","30","48"],a:0,d:"e",topic:"เศษส่วน",s:"60 ÷ 4 = 15 แล้ว ×3 = 45",t:"หา 1 ส่วนก่อน (หารด้วยตัวส่วน) แล้วคูณเศษ"},
+  {q:"สินค้าราคา 1,200 บาท ลด 25% ต้องจ่ายกี่บาท?",c:["900 บาท","300 บาท","960 บาท","875 บาท"],a:0,d:"m",topic:"ร้อยละ",s:"จ่าย 75% ของ 1,200 = 1,200×0.75 = 900",t:"ลด 25% เหลือ 75% คิด 1/4 ของราคาเป็นส่วนลดก็ได้ (300)"},
+  {q:"2/3 + 1/4 มีค่าเท่าใด?",c:["11/12","3/7","3/12","5/7"],a:0,d:"m",topic:"เศษส่วน",s:"ค.ร.น.(3,4)=12 → 8/12 + 3/12 = 11/12",t:"ห้ามบวกเศษกับเศษ ส่วนกับส่วนตรง ๆ ต้องทำส่วนเท่ากันก่อน"},
+  {q:"รถวิ่งด้วยความเร็ว 80 กม./ชม. นาน 3 ชั่วโมง ได้ระยะทางกี่กิโลเมตร?",c:["240","83","26.7","160"],a:0,d:"m",topic:"โจทย์ปัญหา",s:"ระยะทาง = ความเร็ว × เวลา = 80×3 = 240 กม.",t:"จำสามเหลี่ยม ส=ก×ต ระยะทางอยู่บน"},
+  {q:"ส้ม : แอปเปิล = 3 : 5 ถ้ามีส้ม 12 ผล มีแอปเปิลกี่ผล?",c:["20","15","18","24"],a:0,d:"m",topic:"อัตราส่วน",s:"ตัวคูณ = 12÷3 = 4 แอปเปิล = 5×4 = 20",t:"หาตัวคูณจากฝั่งที่รู้ แล้วคูณอีกฝั่ง"},
+  {q:"สามเหลี่ยมฐาน 10 ซม. สูง 6 ซม. มีพื้นที่กี่ตารางเซนติเมตร?",c:["30","60","16","80"],a:0,d:"m",topic:"เรขาคณิต",s:"พื้นที่สามเหลี่ยม = 1/2 × ฐาน × สูง = 1/2×10×6 = 30",t:"อย่าลืมคูณ 1/2 ของสามเหลี่ยม"},
+  {q:"ค่าเฉลี่ยของ 4, 8, 6, 10, 2 คือเท่าใด?",c:["6","30","5","8"],a:0,d:"m",topic:"สถิติ",s:"รวม = 30 หารจำนวน 5 ตัว = 30÷5 = 6",t:"ค่าเฉลี่ย = ผลรวม ÷ จำนวนข้อมูล"},
+  {q:"แบบรูปนี้ตัวถัดไปคือเลขใด: 2, 6, 12, 20, 30, ___",c:["42","40","36","44"],a:0,d:"m",topic:"แบบรูป",s:"ผลต่าง 4,6,8,10 (เพิ่มทีละ 2) ถัดไป +12 → 42",t:"ผลต่างไม่คงที่ ให้ดูผลต่างของผลต่างอีกชั้น"},
+  {q:"ถ้า 15% ของจำนวนหนึ่งเท่ากับ 30 จำนวนนั้นคือเท่าใด?",c:["200","45","150","300"],a:0,d:"m",topic:"ร้อยละ",s:"15% = 30 → 1% = 2 → 100% = 200",t:"หาค่า 1% ก่อน (หารด้วยเปอร์เซ็นต์) แล้วคูณ 100"},
+  {q:"ดินสอ 3 แท่ง ราคา 21 บาท ดินสอ 7 แท่ง ราคากี่บาท?",c:["49 บาท","63 บาท","42 บาท","70 บาท"],a:0,d:"m",topic:"อัตราส่วน",s:"1 แท่ง = 21÷3 = 7 บาท 7 แท่ง = 49 บาท",t:"บัญญัติไตรยางศ์: หาค่า 1 หน่วยก่อน แล้วคูณ"},
+  {q:"มุมภายในสามเหลี่ยมรวม 180 องศา ถ้าสองมุมเป็น 50 และ 60 องศา มุมที่สามกี่องศา?",c:["70","80","110","90"],a:0,d:"m",topic:"มุม",s:"180 − (50+60) = 180 − 110 = 70 องศา",t:"มุมภายในสามเหลี่ยมรวมได้ 180 เสมอ"},
+  {q:"ลูกบาศก์ด้านยาว 5 ซม. มีปริมาตรกี่ลูกบาศก์เซนติเมตร?",c:["125","15","25","100"],a:0,d:"m",topic:"เรขาคณิต",s:"ปริมาตรลูกบาศก์ = ด้าน³ = 5×5×5 = 125",t:"ปริมาตรทรงลูกบาศก์ = ด้านยกกำลังสาม"},
+  {q:"ราคาทุน 80 บาท ขาย 100 บาท ได้กำไรร้อยละเท่าใด?",c:["25%","20%","80%","125%"],a:0,d:"m",topic:"ร้อยละ",s:"กำไร 20 บาท คิดจากทุน = 20/80×100 = 25%",t:"กำไรร้อยละคิดจาก 'ทุน' เสมอ ไม่ใช่ราคาขาย"},
+  {q:"ปัจจุบันพ่ออายุ 40 ปี ลูกอายุ 10 ปี อีกกี่ปีพ่อจะอายุเป็น 2 เท่าของลูก?",c:["20 ปี","10 ปี","15 ปี","30 ปี"],a:0,d:"h",topic:"โจทย์ปัญหา",s:"อีก x ปี: 40+x = 2(10+x) → 40+x = 20+2x → x = 20",t:"โจทย์อายุ ให้ทั้งคู่บวก x เท่ากัน แล้วตั้งสมการ"},
+  {q:"ราคา 1,000 บาท ลด 20% แล้วลดเพิ่มอีก 10% สุดท้ายจ่ายกี่บาท?",c:["720 บาท","700 บาท","730 บาท","680 บาท"],a:0,d:"h",topic:"ร้อยละ",s:"1,000×0.8 = 800 แล้ว ×0.9 = 720",t:"ลดต่อกันต้องคูณทีละทอด ห้ามเอา 20+10=30% รวด"},
+  {q:"งานหนึ่ง ก ทำคนเดียวเสร็จใน 6 วัน ข ทำคนเดียวเสร็จใน 3 วัน ถ้าช่วยกันทำจะเสร็จในกี่วัน?",c:["2 วัน","4.5 วัน","9 วัน","3 วัน"],a:0,d:"h",topic:"โจทย์ปัญหา",s:"วันละ 1/6 + 1/3 = 1/6+2/6 = 3/6 = 1/2 ของงาน จึงเสร็จใน 2 วัน",t:"โจทย์งาน ให้คิดเป็น 'ปริมาณงานต่อวัน' แล้วบวกกัน"},
+  {q:"จำนวนเฉพาะที่อยู่ระหว่าง 10 ถึง 20 มีกี่จำนวน?",c:["4","3","5","6"],a:0,d:"h",topic:"จำนวน",s:"คือ 11, 13, 17, 19 รวม 4 จำนวน",t:"จำนวนเฉพาะมีตัวประกอบแค่ 1 กับตัวมันเอง (1 ไม่ใช่จำนวนเฉพาะ)"},
+  {q:"ค.ร.น. ของ 4, 6 และ 8 คือเท่าใด?",c:["24","48","12","16"],a:0,d:"h",topic:"จำนวน",s:"พหุคูณร่วมที่น้อยสุดของ 4,6,8 คือ 24",t:"แยกตัวประกอบเฉพาะแล้วเลือกกำลังสูงสุด: 2³×3 = 24"},
+  {q:"สี่เหลี่ยมคางหมูมีด้านคู่ขนานยาว 6 และ 10 ซม. สูง 4 ซม. มีพื้นที่กี่ตารางเซนติเมตร?",c:["32","40","60","16"],a:0,d:"h",topic:"เรขาคณิต",s:"พื้นที่ = 1/2 × (6+10) × 4 = 1/2×16×4 = 32",t:"คางหมู = 1/2 × ผลบวกด้านคู่ขนาน × สูง"},
+  {q:"ทอยลูกเต๋า 1 ลูก ความน่าจะเป็นที่ได้แต้มเป็นจำนวนคู่เท่ากับเท่าใด?",c:["1/2","1/3","1/6","2/3"],a:0,d:"h",topic:"ความน่าจะเป็น",s:"แต้มคู่คือ 2,4,6 = 3 แบบ จากทั้งหมด 6 → 3/6 = 1/2",t:"ความน่าจะเป็น = จำนวนแบบที่ต้องการ ÷ จำนวนแบบทั้งหมด"},
+  {q:"แก้สมการ 2(x − 3) = 10 จะได้ x เท่ากับเท่าใด?",c:["8","5","2","11"],a:0,d:"h",topic:"สมการ",s:"กระจาย 2x−6=10 → 2x=16 → x=8",t:"กระจายวงเล็บก่อน หรือหาร 2 ทั้งสองข้างก็ได้: x−3=5"},
+  {q:"แบบรูป 1, 4, 9, 16, ___ ตัวถัดไปคือเลขใด?",c:["25","20","24","36"],a:0,d:"h",topic:"แบบรูป",s:"เป็นเลขกำลังสอง 1²,2²,3²,4² ถัดไป 5²=25",t:"จำเลขกำลังสองไว้ 1 4 9 16 25 36 49 ออกข้อสอบบ่อย"},
+  {q:"ร้านจัดโปร 'ซื้อ 3 จ่าย 2' สินค้าชิ้นละ 60 บาท ถ้าซื้อ 6 ชิ้นต้องจ่ายกี่บาท?",c:["240 บาท","360 บาท","300 บาท","180 บาท"],a:0,d:"h",topic:"โจทย์ปัญหา",s:"ทุก 3 ชิ้นจ่าย 2 ชิ้น ซื้อ 6 ชิ้น = จ่าย 4 ชิ้น = 4×60 = 240",t:"จับกลุ่มตามโปรก่อน (6÷3=2 กลุ่ม) แล้วคิดจำนวนที่ต้องจ่ายจริง"}
+ ]},
+science:{ name:"วิทยาศาสตร์", emoji:"🔬", color:"#2BC4A8",
+ lessons:[
+  {t:"🪐 ระบบสุริยะ", svg:`<svg viewBox="0 0 380 110" width="100%" style="max-width:380px"><circle cx="6" cy="55" r="28" fill="#FFC23C"/><text x="14" y="58" font-size="8" fill="#7a5a00" text-anchor="middle">อาทิตย์</text><circle cx="70" cy="55" r="6" fill="#B0712E"/><circle cx="105" cy="55" r="9" fill="#E0A45C"/><circle cx="142" cy="55" r="9" fill="#4D9DE0"/><circle cx="180" cy="55" r="8" fill="#C1440E"/><circle cx="228" cy="55" r="14" fill="#D8A36B"/><circle cx="278" cy="55" r="12" fill="#E3C97A"/><circle cx="322" cy="55" r="10" fill="#9FD8E6"/><circle cx="360" cy="55" r="9" fill="#5B7BE0"/><text x="70" y="86" font-size="7.5" fill="#444" text-anchor="middle">พุธ</text><text x="105" y="86" font-size="7.5" fill="#444" text-anchor="middle">ศุกร์</text><text x="142" y="86" font-size="7.5" fill="#444" text-anchor="middle">โลก</text><text x="180" y="86" font-size="7.5" fill="#444" text-anchor="middle">อังคาร</text><text x="228" y="86" font-size="7.5" fill="#444" text-anchor="middle">พฤหัส</text><text x="278" y="86" font-size="7.5" fill="#444" text-anchor="middle">เสาร์</text><text x="322" y="86" font-size="7.5" fill="#444" text-anchor="middle">ยูเรนัส</text><text x="360" y="86" font-size="7.5" fill="#444" text-anchor="middle">เนปจูน</text></svg>`,
+   b:`ดวงอาทิตย์เป็นศูนย์กลาง มีดาวเคราะห์ 8 ดวงโคจรรอบ<br>ลำดับจากในออกนอก: <b>พุธ–ศุกร์–โลก–อังคาร–พฤหัส–เสาร์–ยูเรนัส–เนปจูน</b><br>โลกของเราอยู่ลำดับที่ 3`},
+  {t:"💧 วัฏจักรของน้ำ", svg:`<svg viewBox="0 0 320 160" width="100%" style="max-width:340px"><defs><marker id="ag" markerWidth="9" markerHeight="9" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2BC4A8"/></marker><marker id="ab" markerWidth="9" markerHeight="9" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#4D9DE0"/></marker></defs><rect x="0" y="120" width="320" height="40" fill="#BFE3F5"/><text x="50" y="146" font-size="10" fill="#2a6f93">ทะเล / แม่น้ำ</text><circle cx="42" cy="32" r="20" fill="#FFC23C"/><ellipse cx="242" cy="42" rx="46" ry="20" fill="#E7ECF2"/><ellipse cx="214" cy="48" rx="30" ry="15" fill="#F2F5F9"/><text x="244" y="46" font-size="10" fill="#6B6490" text-anchor="middle">เมฆ</text><path d="M96,118 Q104,80 124,60" fill="none" stroke="#2BC4A8" stroke-width="2.5" marker-end="url(#ag)"/><text x="78" y="92" font-size="10" fill="#1c9b85" font-weight="bold">ระเหย</text><path d="M232,64 L224,116" fill="none" stroke="#4D9DE0" stroke-width="2.5" stroke-dasharray="3 3" marker-end="url(#ab)"/><text x="250" y="96" font-size="10" fill="#4D9DE0" font-weight="bold">ฝน</text></svg>`,
+   b:`น้ำหมุนเวียนเป็นวงจรไม่สิ้นสุด:<br>แดดทำให้น้ำ <b>ระเหย</b> ขึ้นไป → ไอน้ำ <b>ควบแน่น</b> เป็นเมฆ → ตกลงมาเป็น <b>ฝน</b> → ไหลกลับสู่แม่น้ำทะเล แล้ววนใหม่`},
+  {t:"🧊 สถานะของสสาร", svg:`<svg viewBox="0 0 360 132" width="100%" style="max-width:360px"><rect x="14" y="20" width="80" height="64" rx="8" fill="#EAF2FB" stroke="#4D9DE0"/><circle cx="34" cy="38" r="5" fill="#4D9DE0"/><circle cx="54" cy="38" r="5" fill="#4D9DE0"/><circle cx="74" cy="38" r="5" fill="#4D9DE0"/><circle cx="34" cy="54" r="5" fill="#4D9DE0"/><circle cx="54" cy="54" r="5" fill="#4D9DE0"/><circle cx="74" cy="54" r="5" fill="#4D9DE0"/><circle cx="34" cy="70" r="5" fill="#4D9DE0"/><circle cx="54" cy="70" r="5" fill="#4D9DE0"/><circle cx="74" cy="70" r="5" fill="#4D9DE0"/><text x="54" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#2B2350">ของแข็ง</text><rect x="140" y="20" width="80" height="64" rx="8" fill="#E5FBF4" stroke="#2BC4A8"/><circle cx="158" cy="40" r="5" fill="#2BC4A8"/><circle cx="186" cy="36" r="5" fill="#2BC4A8"/><circle cx="172" cy="58" r="5" fill="#2BC4A8"/><circle cx="200" cy="60" r="5" fill="#2BC4A8"/><circle cx="156" cy="72" r="5" fill="#2BC4A8"/><circle cx="194" cy="76" r="5" fill="#2BC4A8"/><text x="180" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#2B2350">ของเหลว</text><rect x="266" y="20" width="80" height="64" rx="8" fill="#FFF3E6" stroke="#FF9F40"/><circle cx="282" cy="34" r="5" fill="#FF9F40"/><circle cx="322" cy="42" r="5" fill="#FF9F40"/><circle cx="300" cy="60" r="5" fill="#FF9F40"/><circle cx="334" cy="72" r="5" fill="#FF9F40"/><circle cx="278" cy="74" r="5" fill="#FF9F40"/><text x="306" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#2B2350">แก๊ส</text><text x="117" y="40" text-anchor="middle" font-size="8" fill="#6B6490">หลอม</text><text x="117" y="49" text-anchor="middle" font-size="8" fill="#6B6490">เหลว →</text><text x="243" y="40" text-anchor="middle" font-size="8" fill="#6B6490">กลาย</text><text x="243" y="49" text-anchor="middle" font-size="8" fill="#6B6490">เป็นไอ →</text></svg>`,
+   b:`สสารมี 3 สถานะ ต่างกันที่ "ระยะห่างของอนุภาค": ของแข็ง (ชิดแน่น) → ของเหลว → แก๊ส (ห่างมาก)<br>แข็ง→เหลว = <b>หลอมเหลว</b>, เหลว→แก๊ส = <b>กลายเป็นไอ</b>, แก๊ส→เหลว = <b>ควบแน่น</b>`}
+ ],
+ tips:[
+  "ลำดับดาวเคราะห์จากดวงอาทิตย์: พุธ ศุกร์ โลก อังคาร พฤหัส เสาร์ ยูเรนัส เนปจูน",
+  "เปลี่ยนสถานะ: หลอมเหลว(แข็ง→เหลว), กลายเป็นไอ(เหลว→แก๊ส), ควบแน่น(แก๊ส→เหลว), ระเหิด(แข็ง↔แก๊ส)",
+  "ห่วงโซ่อาหาร: ผู้ผลิต(พืช) → ผู้บริโภค(สัตว์) → ผู้ย่อยสลาย(เห็ด รา แบคทีเรีย)",
+  "วงจรอนุกรม=ทางเดียว ขาดที่เดียวดับหมด / วงจรขนาน=หลายทาง ที่เหลือยังติด"],
+ qs:[
+  {q:"ดาวเคราะห์ดวงใดอยู่ใกล้ดวงอาทิตย์ที่สุด?",c:["ดาวพุธ","ดาวศุกร์","โลก","ดาวอังคาร"],a:0,d:"e",topic:"ดาราศาสตร์",s:"เรียงจากในออกนอก ดาวพุธอยู่ใกล้ที่สุด",t:"ท่อง พุธ-ศุกร์-โลก-อังคาร-พฤหัส-เสาร์-ยูเรนัส-เนปจูน"},
+  {q:"อวัยวะใดทำหน้าที่สูบฉีดเลือดไปเลี้ยงร่างกาย?",c:["หัวใจ","ปอด","ตับ","ไต"],a:0,d:"e",topic:"ร่างกายมนุษย์",s:"หัวใจบีบตัวสูบฉีดเลือดไปทั่วร่างกาย",t:"หัวใจ=สูบเลือด, ปอด=แลกแก๊ส, ไต=กรองของเสีย, ตับ=ทำลายสารพิษ"},
+  {q:"น้ำเดือดกลายเป็นไอที่อุณหภูมิกี่องศาเซลเซียส (ที่ความดันปกติ)?",c:["100","0","50","37"],a:0,d:"e",topic:"สสารและสถานะ",s:"น้ำเดือดที่ 100 องศาเซลเซียส และเป็นน้ำแข็งที่ 0 องศา",t:"จำจุดเดือด 100 และจุดเยือกแข็ง 0 ขององศาเซลเซียส"},
+  {q:"แรงชนิดใดดึงวัตถุให้ตกลงสู่พื้นโลกเสมอ?",c:["แรงโน้มถ่วง","แรงเสียดทาน","แรงแม่เหล็ก","แรงพยุง"],a:0,d:"e",topic:"แรงและการเคลื่อนที่",s:"แรงโน้มถ่วงของโลกดึงทุกอย่างเข้าหาศูนย์กลางโลก",t:"ของหล่นลงพื้น = แรงโน้มถ่วง อย่าสับสนกับแรงเสียดทาน"},
+  {q:"หน่วยพื้นฐานที่เล็กที่สุดของสิ่งมีชีวิตคือข้อใด?",c:["เซลล์","เนื้อเยื่อ","อวัยวะ","ระบบ"],a:0,d:"e",topic:"เซลล์",s:"เซลล์เป็นหน่วยเล็กที่สุดที่ทำงานได้",t:"เรียงเล็กไปใหญ่ เซลล์ → เนื้อเยื่อ → อวัยวะ → ระบบ → ร่างกาย"},
+  {q:"ดวงจันทร์ที่เราเห็นสว่างได้เพราะเหตุใด?",c:["สะท้อนแสงจากดวงอาทิตย์","มีแสงสว่างในตัวเอง","สะท้อนแสงจากโลก","เผาไหม้เหมือนดาวฤกษ์"],a:0,d:"e",topic:"ดาราศาสตร์",s:"ดวงจันทร์ไม่มีแสงในตัวเอง แต่สะท้อนแสงดวงอาทิตย์",t:"ดาวฤกษ์(เช่นดวงอาทิตย์)มีแสงเอง ดาวเคราะห์และดวงจันทร์สะท้อนแสง"},
+  {q:"แก๊สชนิดใดมีมากที่สุดในอากาศที่เราหายใจ?",c:["ไนโตรเจน","ออกซิเจน","คาร์บอนไดออกไซด์","ไฮโดรเจน"],a:0,d:"e",topic:"สารและการเปลี่ยนแปลง",s:"อากาศมีไนโตรเจนประมาณ 78% มากที่สุด ออกซิเจนราว 21%",t:"คนใช้ออกซิเจนหายใจ แต่แก๊สที่มากที่สุดในอากาศคือไนโตรเจน"},
+  {q:"ส่วนใดของพืชทำหน้าที่ดูดน้ำและแร่ธาตุจากดิน?",c:["ราก","ใบ","ดอก","ลำต้น"],a:0,d:"e",topic:"พืช",s:"รากดูดน้ำและแร่ธาตุ ลำต้นลำเลียง ใบสร้างอาหาร",t:"ราก=ดูดน้ำ, ลำต้น=ลำเลียง, ใบ=สังเคราะห์แสง, ดอก=สืบพันธุ์"},
+  {q:"วัสดุชนิดใดเป็นตัวนำไฟฟ้าที่ดี?",c:["ทองแดง","ยาง","พลาสติก","ไม้"],a:0,d:"e",topic:"ไฟฟ้า",s:"โลหะอย่างทองแดงนำไฟฟ้าได้ดี ส่วนยาง พลาสติก ไม้ เป็นฉนวน",t:"โลหะ=ตัวนำ / อโลหะส่วนใหญ่=ฉนวน (กันไฟ)"},
+  {q:"เสียงเดินทางผ่านสิ่งใดไม่ได้?",c:["สุญญากาศ","อากาศ","น้ำ","โลหะ"],a:0,d:"e",topic:"พลังงาน",s:"เสียงต้องอาศัยตัวกลาง ในสุญญากาศไม่มีตัวกลางจึงเดินทางไม่ได้",t:"เสียงต้องมีตัวกลาง(อากาศ น้ำ ของแข็ง) ในอวกาศจึงเงียบ"},
+  {q:"น้ำแข็งละลายกลายเป็นน้ำ เป็นการเปลี่ยนสถานะแบบใด?",c:["การหลอมเหลว","การระเหย","การควบแน่น","การระเหิด"],a:0,d:"m",topic:"สสารและสถานะ",s:"ของแข็งเปลี่ยนเป็นของเหลว เรียกว่าการหลอมเหลว",t:"หลอมเหลว=แข็ง→เหลว, ระเหย=เหลว→แก๊ส, ควบแน่น=แก๊ส→เหลว"},
+  {q:"ในการสังเคราะห์ด้วยแสง พืชใช้แก๊สชนิดใดเป็นวัตถุดิบ?",c:["คาร์บอนไดออกไซด์","ออกซิเจน","ไนโตรเจน","ไฮโดรเจน"],a:0,d:"m",topic:"พืช",s:"พืชใช้ CO₂ + น้ำ + แสง สร้างอาหาร แล้วคายออกซิเจน",t:"พืชตรงข้ามคน: เอา CO₂ เข้า คายออกซิเจนออกตอนมีแสง"},
+  {q:"สิ่งมีชีวิตใดเป็น 'ผู้ผลิต' ในระบบนิเวศ?",c:["ต้นไม้","กระต่าย","เสือ","เห็ดรา"],a:0,d:"m",topic:"ระบบนิเวศ",s:"พืชสีเขียวสร้างอาหารเองได้ จึงเป็นผู้ผลิต",t:"ผู้ผลิต=พืช, ผู้บริโภค=สัตว์, ผู้ย่อยสลาย=เห็ด รา แบคทีเรีย"},
+  {q:"การที่ลูกอ๊อดเจริญเติบโตเปลี่ยนรูปร่างจนเป็นกบ เรียกว่าอะไร?",c:["เมตามอร์โฟซิส (การเปลี่ยนแปลงรูปร่าง)","การสืบพันธุ์","การปรับตัว","การจำศีล"],a:0,d:"m",topic:"สิ่งมีชีวิต",s:"กบมีการเปลี่ยนแปลงรูปร่างจากลูกอ๊อด เรียกเมตามอร์โฟซิส",t:"สัตว์ที่เปลี่ยนรูปร่างชัด เช่น กบ ผีเสื้อ (หนอน→ดักแด้→ผีเสื้อ)"},
+  {q:"แม่เหล็ก 2 แท่งเอาขั้วเหมือนกันเข้าหากันจะเกิดอะไร?",c:["ผลักกัน","ดูดกัน","ไม่เกิดอะไร","ติดกันแน่น"],a:0,d:"m",topic:"แรงและการเคลื่อนที่",s:"ขั้วเหมือนกันผลักกัน ขั้วต่างกันดูดกัน",t:"จำ: เหมือนผลัก ต่างดูด (N-N ผลัก, N-S ดูด)"},
+  {q:"การหายใจของคน นำแก๊สใดเข้าสู่ร่างกาย และคายแก๊สใดออก?",c:["เข้าออกซิเจน คายคาร์บอนไดออกไซด์","เข้าคาร์บอนไดออกไซด์ คายออกซิเจน","เข้าและคายออกซิเจน","เข้าและคายไนโตรเจน"],a:0,d:"m",topic:"ร่างกายมนุษย์",s:"คนหายใจเอาออกซิเจนเข้า ใช้แล้วคายคาร์บอนไดออกไซด์ออก",t:"คนกับพืชสลับกัน: คนเอา O₂ เข้า คาย CO₂"},
+  {q:"ต่อหลอดไฟ 2 หลอดแบบอนุกรม ถ้าหลอดหนึ่งขาด จะเกิดอะไรขึ้น?",c:["อีกหลอดดับด้วย","อีกหลอดสว่างขึ้น","อีกหลอดสว่างเท่าเดิม","ไม่มีอะไรเกิดขึ้น"],a:0,d:"m",topic:"ไฟฟ้า",s:"วงจรอนุกรมมีทางเดินกระแสทางเดียว ขาดหนึ่งจุดวงจรขาด หลอดที่เหลือดับ",t:"อนุกรม=ขาดจุดเดียวดับหมด / ขนาน=ที่เหลือยังติด"},
+  {q:"กระบวนการใดทำให้เกิดเมฆและฝน เป็นวงจรหมุนเวียนของน้ำ?",c:["วัฏจักรของน้ำ","การสังเคราะห์แสง","การหายใจ","การย่อยสลาย"],a:0,d:"m",topic:"โลกและธรณี",s:"น้ำระเหย→กลั่นตัวเป็นเมฆ→ตกเป็นฝน หมุนเวียนเป็นวัฏจักรน้ำ",t:"ลำดับ: ระเหย → ควบแน่น(เมฆ) → ฝนตก → ไหลกลับ"},
+  {q:"น้ำเกลือเป็นสารละลาย ข้อใดคือ 'ตัวทำละลาย'?",c:["น้ำ","เกลือ","ทั้งน้ำและเกลือ","อากาศ"],a:0,d:"m",topic:"สารและการเปลี่ยนแปลง",s:"น้ำเป็นตัวทำละลาย เกลือเป็นตัวถูกละลาย",t:"ตัวทำละลาย=ของที่มีมากกว่า(มักเป็นน้ำ) / ตัวถูกละลาย=ของที่ละลายลงไป"},
+  {q:"แรงชนิดใดทำให้วัตถุที่กำลังเคลื่อนที่ค่อย ๆ ช้าลงและหยุด?",c:["แรงเสียดทาน","แรงโน้มถ่วง","แรงไฟฟ้า","แรงพยุง"],a:0,d:"m",topic:"แรงและการเคลื่อนที่",s:"แรงเสียดทานต้านการเคลื่อนที่ ทำให้วัตถุช้าลงและหยุด",t:"พื้นยิ่งขรุขระ แรงเสียดทานยิ่งมาก / พื้นลื่นมีแรงเสียดทานน้อย"},
+  {q:"น้ำมะนาวมีรสเปรี้ยวและเปลี่ยนกระดาษลิตมัสสีน้ำเงินเป็นสีแดง แสดงว่าน้ำมะนาวเป็นสารประเภทใด?",c:["กรด","เบส","กลาง","สารละลายน้ำตาล"],a:0,d:"h",topic:"สารและการเปลี่ยนแปลง",s:"กรดมีรสเปรี้ยว เปลี่ยนลิตมัสน้ำเงิน→แดง น้ำมะนาวจึงเป็นกรด",t:"กรด=เปรี้ยว ทำน้ำเงิน→แดง / เบส=ลื่น ทำแดง→น้ำเงิน"},
+  {q:"ฤดูกาลบนโลก (ร้อน ฝน หนาว) เกิดจากสาเหตุใด?",c:["โลกเอียงและโคจรรอบดวงอาทิตย์","โลกหมุนรอบตัวเอง","ดวงจันทร์โคจรรอบโลก","ระยะห่างของดวงดาว"],a:0,d:"h",topic:"ดาราศาสตร์",s:"แกนโลกเอียงประมาณ 23.5 องศา ขณะโคจรรอบดวงอาทิตย์จึงเกิดฤดูกาล",t:"หมุนรอบตัวเอง=กลางวันกลางคืน / โคจรรอบดวงอาทิตย์+แกนเอียง=ฤดูกาล"},
+  {q:"การเกิดข้างขึ้น–ข้างแรม (ดวงจันทร์เปลี่ยนรูปร่าง) เกิดจากอะไร?",c:["ดวงจันทร์โคจรรอบโลก","โลกหมุนรอบตัวเอง","ดวงอาทิตย์เคลื่อนที่","เมฆบังดวงจันทร์"],a:0,d:"h",topic:"ดาราศาสตร์",s:"เมื่อดวงจันทร์โคจรรอบโลก มุมที่แสงอาทิตย์ส่องเปลี่ยนไป เราจึงเห็นรูปร่างต่างกัน",t:"ข้างขึ้นข้างแรมมาจากตำแหน่งดวงจันทร์ ไม่ใช่เงาโลกบัง (นั่นคือจันทรุปราคา)"},
+  {q:"เลือดของคนมีสีแดงเพราะมีสารใดในเม็ดเลือดแดง?",c:["ฮีโมโกลบิน","คลอโรฟิลล์","เมลานิน","กลูโคส"],a:0,d:"h",topic:"ร่างกายมนุษย์",s:"ฮีโมโกลบินซึ่งมีธาตุเหล็ก ทำให้เลือดมีสีแดงและพาออกซิเจนได้",t:"ฮีโมโกลบินในเลือดคน เทียบกับคลอโรฟิลล์(สีเขียว)ในพืช"},
+  {q:"ปัจจัยใดที่พืชสีเขียวต้องใช้ในการสังเคราะห์ด้วยแสง 'ครบทั้งหมด'?",c:["แสง น้ำ และคาร์บอนไดออกไซด์","แสง น้ำ และออกซิเจน","ดิน น้ำ และออกซิเจน","แสง ดิน และไนโตรเจน"],a:0,d:"h",topic:"พืช",s:"พืชต้องใช้แสง น้ำ และคาร์บอนไดออกไซด์ ผลิตอาหารและคายออกซิเจน",t:"จำสามอย่าง: แสง + น้ำ + CO₂ → อาหาร(น้ำตาล) + O₂"},
+  {q:"การจำแนกสัตว์ ข้อใดเป็น 'สัตว์เลี้ยงลูกด้วยนม' ทั้งหมด?",c:["ค้างคาว วาฬ คน","นกพิราบ จระเข้ ปลา","กบ งู เต่า","ผีเสื้อ แมงมุม กุ้ง"],a:0,d:"h",topic:"สิ่งมีชีวิต",s:"ค้างคาว(บินได้) วาฬ(อยู่น้ำ) และคน ล้วนเลี้ยงลูกด้วยนม",t:"เลี้ยงลูกด้วยนมไม่จำเป็นต้องอยู่บนบกเสมอ วาฬ-โลมาก็ใช่"},
+  {q:"ถ้าในห่วงโซ่อาหารหนึ่ง 'งู' หายไปทั้งหมด สิ่งใดมีแนวโน้มเกิดขึ้นกับ 'หนู' ที่เป็นเหยื่อของงู?",c:["หนูเพิ่มจำนวนมากขึ้น","หนูลดจำนวนลง","หนูสูญพันธุ์","ไม่มีผลใด ๆ"],a:0,d:"h",topic:"ระบบนิเวศ",s:"งูเป็นผู้ล่าของหนู เมื่อผู้ล่าหายไป หนูจึงเพิ่มจำนวนขึ้น",t:"ในห่วงโซ่อาหาร ผู้ล่าลด → เหยื่อเพิ่ม / เหยื่อลด → ผู้ล่าขาดอาหาร"}
+ ]},
+thai:{ name:"ภาษาไทย", emoji:"📖", color:"#FF6B6B",
+ lessons:[
+  {t:"🏷️ ชนิดของคำ", svg:`<svg viewBox="0 0 320 110" width="100%" style="max-width:340px"><rect x="20" y="20" width="80" height="36" rx="8" fill="#fff" stroke="#ddd"/><text x="60" y="44" text-anchor="middle" font-size="18" fill="#2B2350">น้อง</text><rect x="120" y="20" width="80" height="36" rx="8" fill="#fff" stroke="#ddd"/><text x="160" y="44" text-anchor="middle" font-size="18" fill="#2B2350">วิ่ง</text><rect x="220" y="20" width="80" height="36" rx="8" fill="#fff" stroke="#ddd"/><text x="260" y="44" text-anchor="middle" font-size="18" fill="#2B2350">เร็ว</text><rect x="20" y="68" width="80" height="28" rx="14" fill="#4D9DE0"/><text x="60" y="87" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">คำนาม</text><rect x="120" y="68" width="80" height="28" rx="14" fill="#2BC4A8"/><text x="160" y="87" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">คำกริยา</text><rect x="220" y="68" width="80" height="28" rx="14" fill="#FF9F40"/><text x="260" y="87" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">คำวิเศษณ์</text></svg>`,
+   b:`<b>คำนาม</b> = ชื่อคน สัตว์ สิ่งของ (น้อง แมว โรงเรียน)<br><b>คำกริยา</b> = อาการ การกระทำ (วิ่ง กิน นอน)<br><b>คำวิเศษณ์</b> = คำขยาย บอกลักษณะ (เร็ว สวย ดี)<br><b>คำสรรพนาม</b> = คำแทนชื่อ (ฉัน เธอ เขา)`},
+  {t:"🔤 คำเป็น – คำตาย", svg:`<svg viewBox="0 0 320 138" width="100%" style="max-width:340px"><rect x="14" y="18" width="140" height="106" rx="10" fill="#E5FBF4" stroke="#2BC4A8"/><text x="84" y="38" text-anchor="middle" font-size="12" fill="#1c9b85" font-weight="bold">คำเป็น (เสียงยาว)</text><text x="84" y="64" text-anchor="middle" font-size="16" fill="#2B2350">กิน</text><text x="84" y="88" text-anchor="middle" font-size="16" fill="#2B2350">ลม</text><text x="84" y="112" text-anchor="middle" font-size="16" fill="#2B2350">คาน</text><rect x="166" y="18" width="140" height="106" rx="10" fill="#FFECEC" stroke="#FF6B6B"/><text x="236" y="38" text-anchor="middle" font-size="12" fill="#d44" font-weight="bold">คำตาย (เสียงสั้น)</text><text x="236" y="64" text-anchor="middle" font-size="16" fill="#2B2350">นก</text><text x="236" y="88" text-anchor="middle" font-size="16" fill="#2B2350">จับ</text><text x="236" y="112" text-anchor="middle" font-size="16" fill="#2B2350">บท</text></svg>`,
+   b:`<b>คำเป็น</b> = สะกดด้วยแม่ กง กน กม เกย เกอว หรือสระเสียงยาว (กิน ลม คาน)<br><b>คำตาย</b> = สะกดด้วยแม่ กก กด กบ หรือสระเสียงสั้น (นก จับ บท)<br>ลองอ่านออกเสียง ถ้าลากเสียงยาวได้ = คำเป็น`},
+  {t:"🗣️ คำควบกล้ำ", svg:`<svg viewBox="0 0 320 148" width="100%" style="max-width:340px"><rect x="14" y="16" width="140" height="118" rx="10" fill="#EFFAF7" stroke="#2BC4A8"/><text x="84" y="36" text-anchor="middle" font-size="12" fill="#1c9b85" font-weight="bold">ควบแท้ (อ่านครบ 2)</text><text x="84" y="62" text-anchor="middle" font-size="15" fill="#2B2350">ปลา</text><text x="84" y="88" text-anchor="middle" font-size="15" fill="#2B2350">ครู</text><text x="84" y="114" text-anchor="middle" font-size="15" fill="#2B2350">กลอง</text><rect x="166" y="16" width="140" height="118" rx="10" fill="#FFF6E9" stroke="#FF9F40"/><text x="236" y="36" text-anchor="middle" font-size="12" fill="#E8702A" font-weight="bold">ควบไม่แท้</text><text x="236" y="62" text-anchor="middle" font-size="14" fill="#2B2350">จริง → จิง</text><text x="236" y="88" text-anchor="middle" font-size="14" fill="#2B2350">ทราย → ซาย</text><text x="236" y="114" text-anchor="middle" font-size="14" fill="#2B2350">สร้าง → ส้าง</text></svg>`,
+   b:`คำควบกล้ำ คือคำที่มีพยัญชนะต้น 2 ตัวควบกัน<br><b>ควบแท้</b> = ออกเสียงทั้งสองตัว (ปลา ครู กลอง)<br><b>ควบไม่แท้</b> = ออกเสียงไม่ครบ เช่น จริง อ่าน "จิง", ทราย อ่าน "ซาย"`}
+ ],
+ tips:[
+  "ราชาศัพท์อวัยวะ: พระเนตร=ตา, พระกรรณ=หู, พระนาสิก=จมูก, พระหัตถ์=มือ, พระบาท=เท้า",
+  "คำควบกล้ำแท้ออกเสียง 2 ตัว(ปลา ครู) / ไม่แท้: จร สร ออกตัวหน้าตัวเดียว, ทร ออกเสียง 'ซ'",
+  "คำเป็น=แม่ กง กน กม เกย เกอว+สระยาว / คำตาย=แม่ กก กด กบ+สระสั้น",
+  "คำเขียนผิดบ่อย: อนุญาต, สังเกต, กะเพรา, ลายเซ็น, ผัดไทย, นานัปการ"],
+ qs:[
+  {q:"คำราชาศัพท์ที่หมายถึง 'ตา' ของพระมหากษัตริย์ คือคำใด?",c:["พระเนตร","พระกรรณ","พระนาสิก","พระหัตถ์"],a:0,d:"e",topic:"ราชาศัพท์",s:"พระเนตร = ตา",t:"จำชุด พระเนตร(ตา) พระกรรณ(หู) พระนาสิก(จมูก) พระหัตถ์(มือ) พระบาท(เท้า)"},
+  {q:"คำว่า 'นักเรียน' เป็นคำชนิดใด?",c:["คำนาม","คำกริยา","คำวิเศษณ์","คำสรรพนาม"],a:0,d:"e",topic:"ชนิดของคำ",s:"เป็นชื่อเรียกคน จึงเป็นคำนาม",t:"นาม=ชื่อคน สัตว์ สิ่งของ / กริยา=อาการ / วิเศษณ์=คำขยาย / สรรพนาม=คำแทนชื่อ"},
+  {q:"ข้อใดสะกดคำได้ถูกต้อง?",c:["อนุญาต","อนุญาติ","อนุญาด","อะนุญาต"],a:0,d:"e",topic:"การสะกดคำ",s:"เขียนว่า 'อนุญาต' (ไม่มีสระอิที่ ต)",t:"กลุ่มคำพลาดบ่อย: อนุญาต สังเกต กะเพรา ลายเซ็น ท่องไว้"},
+  {q:"คำใดเป็นคำควบกล้ำแท้ (ออกเสียงพยัญชนะทั้งสองตัว)?",c:["ปลา","จริง","ทราย","สร้าง"],a:0,d:"e",topic:"คำควบกล้ำ",s:"'ปลา' ออกเสียงทั้ง ป และ ล = ควบแท้",t:"อ่านออกเสียงดู ครบสองตัว=ควบแท้ / ทร มักออกเสียง 'ซ'"},
+  {q:"ในประโยค 'น้องวิ่งเร็ว' คำว่า 'เร็ว' เป็นคำชนิดใด?",c:["คำวิเศษณ์","คำกริยา","คำนาม","คำบุพบท"],a:0,d:"e",topic:"ชนิดของคำ",s:"'เร็ว' ขยายกริยา 'วิ่ง' จึงเป็นคำวิเศษณ์",t:"คำที่ไปขยาย/บอกลักษณะคำอื่น(เร็ว ช้า สวย ดี)=คำวิเศษณ์"},
+  {q:"คำว่า 'นก' อยู่ในมาตราตัวสะกดแม่ใด?",c:["แม่กก","แม่กน","แม่กง","แม่กด"],a:0,d:"e",topic:"มาตราตัวสะกด",s:"'นก' สะกดด้วย ก จึงอยู่แม่กก",t:"แม่กก=สะกด ก ข ค / แม่กด=สะกด ด ต ถ ท / แม่กบ=สะกด บ ป พ ฟ"},
+  {q:"คำใดมีความหมายตรงข้ามกับคำว่า 'ขยัน'?",c:["เกียจคร้าน","ตั้งใจ","อดทน","มานะ"],a:0,d:"e",topic:"คำตรงข้าม",s:"ขยัน ตรงข้ามกับ เกียจคร้าน (ขี้เกียจ)",t:"คำตรงข้ามต้องความหมายสวนกัน ส่วน ตั้งใจ อดทน มานะ ความหมายใกล้ขยัน"},
+  {q:"'พระบาท' เป็นคำราชาศัพท์ หมายถึงอวัยวะส่วนใด?",c:["เท้า","มือ","หู","ปาก"],a:0,d:"e",topic:"ราชาศัพท์",s:"พระบาท = เท้า",t:"บาท แปลว่า เท้า อยู่แล้ว เช่น เดินด้วยพระบาท"},
+  {q:"คำใดเป็น 'คำเป็น'?",c:["กิน","จับ","นก","บท"],a:0,d:"m",topic:"คำเป็นคำตาย",s:"'กิน' สะกดแม่กน = คำเป็น ส่วน จับ(กบ) นก(กก) บท(กด) เป็นคำตาย",t:"คำเป็น=แม่ กง กน กม เกย เกอว+สระยาว / คำตาย=แม่ กก กด กบ+สระสั้น"},
+  {q:"สำนวน 'วัวหายล้อมคอก' มีความหมายตรงกับข้อใด?",c:["เกิดเรื่องเสียหายแล้วค่อยป้องกัน","ทำงานที่ยากมาก","ความขยันหมั่นเพียร","การช่วยเหลือเกื้อกูลกัน"],a:0,d:"m",topic:"สำนวนสุภาษิต",s:"หมายถึงเรื่องเสียหายเกิดขึ้นแล้วจึงค่อยป้องกัน ซึ่งสายไปแล้ว",t:"สำนวนนี้สอนว่าควรป้องกันก่อนเกิดเหตุ"},
+  {q:"คำว่า 'ขนม' อ่านออกเสียงว่า ขะ-หฺนม จัดเป็นคำประเภทใด?",c:["อักษรนำ","คำควบกล้ำ","คำสมาส","คำซ้อน"],a:0,d:"m",topic:"อักษรนำ",s:"ข นำ น ออกเสียงสองพยางค์ ขะ-หฺนม เป็นอักษรนำ",t:"อักษรนำมี ห หรืออักษรสูง/กลางนำ เช่น ขนม ตลาด สนาม อร่อย"},
+  {q:"คำใดเป็นคำควบกล้ำ 'ไม่แท้' (ออกเสียงไม่ครบสองตัว)?",c:["ทราย","ครู","ปลา","กลอง"],a:0,d:"m",topic:"คำควบกล้ำ",s:"'ทราย' ออกเสียง 'ซาย' (ทร ออกเสียง ซ) เป็นควบไม่แท้",t:"ควบไม่แท้: ทร→เสียง ซ, จร/สร→ออกตัวหน้าตัวเดียว(จริง=จิง สร้าง=ส้าง)"},
+  {q:"ลักษณนามของ 'พระภิกษุ' คือคำใด?",c:["รูป","องค์","คน","ตน"],a:0,d:"m",topic:"ลักษณนาม",s:"พระภิกษุใช้ลักษณนามว่า 'รูป' เช่น พระ 5 รูป",t:"ลักษณนามออกบ่อย: พระ-รูป, ช้าง-เชือก, ปากกา-ด้าม, หนังสือ-เล่ม"},
+  {q:"ในประโยค 'แมวกินปลา' คำว่า 'ปลา' ทำหน้าที่อะไร?",c:["กรรม","ประธาน","กริยา","วิเศษณ์"],a:0,d:"m",topic:"ประโยค",s:"ปลาเป็นสิ่งที่ถูกกริยากระทำ (ถูกกิน) จึงเป็นกรรม",t:"ประธาน=ผู้ทำ, กริยา=อาการ, กรรม=ผู้ถูกกระทำ (ใคร ทำอะไร กับอะไร)"},
+  {q:"สุภาษิต 'น้ำขึ้นให้รีบตัก' สอนเรื่องใด?",c:["มีโอกาสควรรีบทำ","ความประหยัด","ความซื่อสัตย์","ความอดทน"],a:0,d:"m",topic:"สำนวนสุภาษิต",s:"เมื่อมีโอกาสหรือจังหวะดี ควรรีบทำ อย่าปล่อยให้ผ่านไป",t:"โยงภาพ: น้ำขึ้น=โอกาสมา ต้องรีบตักไว้ก่อนน้ำลง"},
+  {q:"คำว่า 'บ้านเรือน' จัดเป็นคำประเภทใด?",c:["คำซ้อน","คำซ้ำ","คำควบกล้ำ","อักษรนำ"],a:0,d:"m",topic:"ชนิดของคำ",s:"บ้าน + เรือน เป็นคำที่มีความหมายใกล้เคียงมาประกอบกัน = คำซ้อน",t:"คำซ้อน=คำความหมายคล้ายมาเรียงกัน(บ้านเรือน ข้าวปลา) / คำซ้ำ=คำเดิมซ้ำ(ดำ ๆ)"},
+  {q:"คำราชาศัพท์ 'เสวย' ใช้กับพระมหากษัตริย์ หมายถึงกริยาใด?",c:["กิน","นอน","เดิน","พูด"],a:0,d:"h",topic:"ราชาศัพท์",s:"เสวย = กิน(รับประทาน) สำหรับพระมหากษัตริย์",t:"จำกริยาราชาศัพท์: เสวย=กิน, บรรทม=นอน, ประทับ=อยู่/นั่ง, ตรัส=พูด"},
+  {q:"คำราชาศัพท์สำหรับพระสงฆ์ คำว่า 'อาพาธ' หมายถึงอะไร?",c:["ป่วย","ฉัน(กิน)","นอน","มรณภาพ"],a:0,d:"h",topic:"ราชาศัพท์",s:"อาพาธ = อาการป่วยของพระสงฆ์",t:"คำของพระสงฆ์: ฉัน=กิน, จำวัด=นอน, อาพาธ=ป่วย, มรณภาพ=ตาย"},
+  {q:"สุภาษิต 'กว่าถั่วจะสุกงาก็ไหม้' มีความหมายตรงกับข้อใด?",c:["ทำสองอย่างพร้อมกันจนเสียทั้งคู่","ค่อย ๆ ทำได้ผลดี","ความพยายามไม่สูญเปล่า","ทำดีได้ดี"],a:0,d:"h",topic:"สำนวนสุภาษิต",s:"มัวทำอย่างหนึ่งจนอีกอย่างเสียหาย ทำพร้อมกันจึงเสียทั้งสองอย่าง",t:"โยงภาพ: คั่วถั่วกับงาพร้อมกัน กว่าถั่วสุก งาไหม้ = ลังเล/แบ่งใจจนเสียหมด"},
+  {q:"ข้อใดใช้คำลักษณนาม 'ถูกต้องทุกคำ'?",c:["ช้าง 2 เชือก, รถ 3 คัน","ปากกา 2 ตัว, ช้าง 3 ตัว","หนังสือ 4 ใบ, พระ 2 คน","เลื่อย 1 ด้าม, ปลา 2 เล่ม"],a:0,d:"h",topic:"ลักษณนาม",s:"ช้างใช้ 'เชือก' รถใช้ 'คัน' ถูกทั้งคู่ ส่วนข้ออื่นมีคำผิด",t:"จำคู่: ช้าง-เชือก, รถ-คัน, ปลา-ตัว, หนังสือ-เล่ม, พระ-รูป"},
+  {q:"ในประโยค 'ฉันไปโรงเรียนเพราะอยากเรียนหนังสือ' คำว่า 'เพราะ' เป็นคำชนิดใด?",c:["คำสันธาน","คำบุพบท","คำวิเศษณ์","คำอุทาน"],a:0,d:"h",topic:"ชนิดของคำ",s:"'เพราะ' เชื่อมความสองส่วนเข้าด้วยกัน เป็นคำสันธาน",t:"สันธาน=คำเชื่อม(และ แต่ เพราะ ถ้า) / บุพบท=คำหน้านาม(ใน บน ของ)"},
+  {q:"คำว่า 'ราชการ' เกิดจากการรวมคำแบบใด?",c:["คำสมาส (รวมคำบาลี-สันสกฤต)","คำซ้อน","คำควบกล้ำ","คำซ้ำ"],a:0,d:"h",topic:"ชนิดของคำ",s:"ราช + การ เป็นคำบาลีสันสกฤตมาสมาสกัน อ่านว่า ราด-ชะ-กาน",t:"คำสมาสมักมาจากบาลี-สันสกฤต อ่านออกเสียงเชื่อม เช่น ราชการ วิทยาลัย"},
+  {q:"สุภาษิต 'น้ำร้อนปลาเป็น น้ำเย็นปลาตาย' หมายความว่าอย่างไร?",c:["คำพูดตรง ๆ อาจดีกว่าคำพูดอ่อนหวานที่แฝงพิษภัย","ความเปลี่ยนแปลงของอากาศ","การทำอาหาร","ความขยันอดทน"],a:0,d:"h",topic:"สำนวนสุภาษิต",s:"คำพูดตรงไปตรงมาแม้ฟังแล้วร้อนหู อาจมีประโยชน์กว่าคำหวานที่ซ่อนอันตราย",t:"ตีความเชิงเปรียบ: 'น้ำร้อน/เย็น' = ลักษณะคำพูด ไม่ใช่ความหมายตรงตัว"}
+ ]},
+english:{ name:"ภาษาอังกฤษ", emoji:"🔤", color:"#9B5DE5",
+ lessons:[
+  {t:"🧩 Verb to be (am / is / are)", svg:`<svg viewBox="0 0 320 148" width="100%" style="max-width:340px"><rect x="20" y="14" width="150" height="34" rx="8" fill="#EDE7FB"/><text x="95" y="36" text-anchor="middle" font-size="15" fill="#5B3FC0" font-weight="bold">I</text><text x="183" y="37" font-size="18" fill="#9B5DE5">→</text><rect x="208" y="14" width="92" height="34" rx="8" fill="#9B5DE5"/><text x="254" y="37" text-anchor="middle" font-size="15" fill="#fff" font-weight="bold">am</text><rect x="20" y="56" width="150" height="34" rx="8" fill="#EDE7FB"/><text x="95" y="78" text-anchor="middle" font-size="14" fill="#5B3FC0" font-weight="bold">He / She / It</text><text x="183" y="79" font-size="18" fill="#9B5DE5">→</text><rect x="208" y="56" width="92" height="34" rx="8" fill="#9B5DE5"/><text x="254" y="79" text-anchor="middle" font-size="15" fill="#fff" font-weight="bold">is</text><rect x="20" y="98" width="150" height="34" rx="8" fill="#EDE7FB"/><text x="95" y="120" text-anchor="middle" font-size="12.5" fill="#5B3FC0" font-weight="bold">We / You / They</text><text x="183" y="121" font-size="18" fill="#9B5DE5">→</text><rect x="208" y="98" width="92" height="34" rx="8" fill="#9B5DE5"/><text x="254" y="121" text-anchor="middle" font-size="15" fill="#fff" font-weight="bold">are</text></svg>`,
+   b:`Verb to be มี 3 แบบ ขึ้นกับประธาน:<br><b>I → am</b> &nbsp; <b>He/She/It → is</b> &nbsp; <b>We/You/They → are</b><br>เช่น I am happy. / She is happy. / They are happy.`},
+  {t:"🍎 a หรือ an", svg:`<svg viewBox="0 0 320 138" width="100%" style="max-width:340px"><rect x="14" y="16" width="140" height="106" rx="10" fill="#F3EFFD" stroke="#9B5DE5"/><text x="84" y="36" text-anchor="middle" font-size="13" fill="#5B3FC0" font-weight="bold">a + เสียงพยัญชนะ</text><text x="84" y="62" text-anchor="middle" font-size="14" fill="#2B2350">🐶 a dog</text><text x="84" y="86" text-anchor="middle" font-size="14" fill="#2B2350">🐱 a cat</text><text x="84" y="110" text-anchor="middle" font-size="14" fill="#2B2350">📖 a book</text><rect x="166" y="16" width="140" height="106" rx="10" fill="#FFF6E9" stroke="#FF9F40"/><text x="236" y="36" text-anchor="middle" font-size="13" fill="#E8702A" font-weight="bold">an + เสียงสระ</text><text x="236" y="62" text-anchor="middle" font-size="14" fill="#2B2350">🍎 an apple</text><text x="236" y="86" text-anchor="middle" font-size="14" fill="#2B2350">🥚 an egg</text><text x="236" y="110" text-anchor="middle" font-size="14" fill="#2B2350">🍊 an orange</text></svg>`,
+   b:`ใช้ <b>a</b> หน้าคำที่ขึ้นต้นด้วยเสียงพยัญชนะ (a dog, a book)<br>ใช้ <b>an</b> หน้าคำที่ขึ้นต้นด้วยเสียงสระ a-e-i-o-u (an apple, an egg, an orange)`},
+  {t:"📦 Prepositions (in / on / under)", svg:`<svg viewBox="0 0 340 124" width="100%" style="max-width:360px"><rect x="24" y="34" width="60" height="44" rx="6" fill="none" stroke="#9B5DE5" stroke-width="3"/><circle cx="54" cy="56" r="11" fill="#FFC23C"/><text x="54" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#5B3FC0">in (ข้างใน)</text><rect x="140" y="54" width="60" height="30" rx="6" fill="none" stroke="#9B5DE5" stroke-width="3"/><circle cx="170" cy="40" r="11" fill="#FFC23C"/><text x="170" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#5B3FC0">on (ข้างบน)</text><rect x="256" y="38" width="60" height="30" rx="6" fill="none" stroke="#9B5DE5" stroke-width="3"/><circle cx="286" cy="82" r="11" fill="#FFC23C"/><text x="286" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#5B3FC0">under (ใต้)</text></svg>`,
+   b:`<b>in</b> = อยู่ข้างใน &nbsp; <b>on</b> = อยู่บน &nbsp; <b>under</b> = อยู่ใต้<br>The ball is <b>in</b> the box. / <b>on</b> the box. / <b>under</b> the box.`}
+ ],
+ tips:[
+  "Present Simple: ประธานเอกพจน์ (he/she/it) กริยาเติม s/es (She goes / He plays)",
+  "กริยา 3 ช่องผิดปกติที่ออกบ่อย: go-went-gone, eat-ate-eaten, see-saw-seen ต้องท่อง",
+  "a/an: ใช้ an หน้าเสียงสระ (an apple, an egg, an hour ที่ h ไม่ออกเสียง)",
+  "Verb to be: I→am, he/she/it→is, we/you/they→are"],
+ qs:[
+  {q:"Choose the correct word:  She ___ to school every day.",c:["goes","go","going","gone"],a:0,d:"e",topic:"Tenses",s:"ประธาน She (เอกพจน์) ใน Present Simple เติม -es → goes",t:"he/she/it + every day → เติม s/es ที่กริยา"},
+  {q:"Fill in the blank:  There are many books ___ the table.",c:["on","in","at","of"],a:0,d:"e",topic:"Prepositions",s:"หนังสือวางอยู่บนพื้นผิวโต๊ะ ใช้ on",t:"on=บนพื้นผิว, in=ข้างใน, at=ตำแหน่ง/เวลาเฉพาะจุด"},
+  {q:"Choose the correct article:  I saw ___ elephant at the zoo.",c:["an","a","the","–"],a:0,d:"e",topic:"Articles",s:"elephant ขึ้นต้นด้วยเสียงสระ จึงใช้ an",t:"an ใช้หน้าเสียงสระ a-e-i-o-u: an apple, an egg, an elephant"},
+  {q:"What is the opposite of  'happy' ?",c:["sad","glad","joy","funny"],a:0,d:"e",topic:"Vocabulary",s:"happy(มีความสุข) ตรงข้ามกับ sad(เศร้า)",t:"ท่องคำตรงข้ามเป็นคู่: hot/cold, big/small, happy/sad"},
+  {q:"Choose the correct word:  '___ is your name?'",c:["What","Who","Where","When"],a:0,d:"e",topic:"Wh-questions",s:"ถามชื่อใช้ What is your name?",t:"What=อะไร, Who=ใคร, Where=ที่ไหน, When=เมื่อไร, Why=ทำไม"},
+  {q:"Choose the correct verb:  There ___ a cat on the sofa.",c:["is","are","am","be"],a:0,d:"e",topic:"Grammar",s:"a cat เป็นเอกพจน์ ใช้ There is",t:"There is + เอกพจน์ / There are + พหูพจน์"},
+  {q:"What is the plural of  'child' ?",c:["children","childs","childes","child"],a:0,d:"e",topic:"Plurals",s:"child เป็นพหูพจน์ผิดปกติ → children",t:"พหูพจน์ผิดปกติ: child→children, man→men, foot→feet, tooth→teeth"},
+  {q:"Choose the correct pronoun:  Mary is my friend. ___ is very kind.",c:["She","He","It","They"],a:0,d:"e",topic:"Grammar",s:"Mary เป็นผู้หญิง ใช้สรรพนาม She",t:"he=ผู้ชาย, she=ผู้หญิง, it=สิ่งของ/สัตว์, they=พหูพจน์"},
+  {q:"What is the past tense of  'go' ?",c:["went","goed","gone","going"],a:0,d:"m",topic:"Tenses",s:"go เป็นกริยาผิดปกติ ช่องที่ 2 คือ went",t:"go-went-gone ท่องเป็นชุด ห้ามเติม -ed (ไม่มี goed)"},
+  {q:"Choose the correct verb:  My brother and I ___ playing football.",c:["are","is","am","be"],a:0,d:"m",topic:"Grammar",s:"'My brother and I' เป็นพหูพจน์ (=we) ใช้ are",t:"...and I มักทำให้เป็นพหูพจน์ → are"},
+  {q:"Complete:  Look! The baby ___ now.  (sleep)",c:["is sleeping","sleep","sleeps","slept"],a:0,d:"m",topic:"Tenses",s:"คำว่า Look!/now บอกเหตุการณ์ตอนนี้ ใช้ Present Continuous: is sleeping",t:"เห็น now/Look!/at the moment → is/am/are + กริยาเติม -ing"},
+  {q:"Read:  'Tom has a red bag. His sister has a blue one.'  What color is the sister's bag?",c:["Blue","Red","Green","Yellow"],a:0,d:"m",topic:"Reading",s:"His sister has a blue one (one แทน bag) จึงเป็นสีฟ้า",t:"อ่านจับใจความ ขีดเส้นใต้คำถาม(sister, color) แล้วโยงกลับไปหา"},
+  {q:"Choose the correct word:  A doctor works in a ___.",c:["hospital","school","kitchen","farm"],a:0,d:"m",topic:"Vocabulary",s:"หมอทำงานในโรงพยาบาล (hospital)",t:"จับคู่อาชีพ-สถานที่: teacher→school, cook→kitchen, farmer→farm"},
+  {q:"Choose the comparative:  An elephant is ___ than a dog.",c:["bigger","big","biggest","more big"],a:0,d:"m",topic:"Comparison",s:"เปรียบเทียบ 2 สิ่งใช้ขั้นกว่า big → bigger + than",t:"คำสั้นเติม -er + than / คำยาวใช้ more...than"},
+  {q:"Choose the correct word:  ___ books are mine.  (ชี้ของใกล้ หลายเล่ม)",c:["These","This","That","It"],a:0,d:"m",topic:"Grammar",s:"books เป็นพหูพจน์และอยู่ใกล้ ใช้ These",t:"this/these=ใกล้(this เอกพจน์ these พหูพจน์), that/those=ไกล"},
+  {q:"Choose the correct preposition:  We have English ___ Monday.",c:["on","in","at","of"],a:0,d:"m",topic:"Prepositions",s:"วันใช้ on → on Monday",t:"เวลา: in(เดือน/ปี) on(วัน/วันที่) at(เวลานาฬิกา/at night)"},
+  {q:"Choose the correct verb:  Did you ___ to the party yesterday?",c:["go","went","gone","going"],a:0,d:"h",topic:"Tenses",s:"หลัง Did ใช้กริยาช่องที่ 1 (รูปปกติ) เสมอ → go",t:"กับดักยอดฮิต! มี did แล้ว กริยากลับเป็นช่อง 1 (Did you go ไม่ใช่ Did you went)"},
+  {q:"Choose the correct article:  He is ___ university student.",c:["a","an","the","–"],a:0,d:"h",topic:"Articles",s:"university ขึ้นต้นด้วยเสียง 'yu' (เสียงพยัญชนะ) จึงใช้ a",t:"ดู 'เสียง' ไม่ใช่ตัวอักษร: a university(เสียง y), an hour(h เงียบ)"},
+  {q:"Choose the superlative:  Mount Everest is the ___ mountain in the world.",c:["highest","higher","high","most high"],a:0,d:"h",topic:"Comparison",s:"เปรียบเทียบสูงสุดในกลุ่ม ใช้ขั้นสูงสุด the highest",t:"ขั้นสูงสุดคำสั้นเติม -est + the / คำยาวใช้ the most"},
+  {q:"Choose the correct sentence.",c:["She doesn't like coffee.","She don't likes coffee.","She not like coffee.","She doesn't likes coffee."],a:0,d:"h",topic:"Grammar",s:"ปฏิเสธ Present Simple: She + doesn't + กริยาช่อง 1 → doesn't like",t:"มี doesn't/don't แล้ว กริยากลับเป็นรูปปกติ (ไม่เติม s)"},
+  {q:"Read:  'Anna goes to bed at 9 p.m. and wakes up at 6 a.m.'  How many hours does Anna sleep?",c:["9 hours","6 hours","3 hours","12 hours"],a:0,d:"h",topic:"Reading",s:"จาก 21:00 ถึง 06:00 เป็นเวลา 9 ชั่วโมง",t:"โจทย์อ่านที่มีตัวเลข ให้คำนวณตามจริง ไม่ใช่หาคำตอบในประโยคตรง ๆ"},
+  {q:"Choose the correct word:  I will visit my grandma ___ next week.",c:["–","at","in","on"],a:0,d:"h",topic:"Prepositions",s:"next week / last week / tomorrow ไม่ต้องใช้บุพบท",t:"คำว่า next, last, this, every, tomorrow, yesterday ไม่ต้องมี at/in/on"},
+  {q:"Choose the question word:  '___ bag is this?'  It's Tom's.",c:["Whose","Who","Which","What"],a:0,d:"h",topic:"Wh-questions",s:"คำตอบบอกเจ้าของ (Tom's) คำถามจึงใช้ Whose (ของใคร)",t:"Whose=ของใคร(เจ้าของ), Who=ใคร(คน), Which=อันไหน(เลือก)"}
+ ]},
+social:{ name:"สังคมศึกษา", emoji:"🌏", color:"#FF9F40",
+ lessons:[
+  {t:"📜 ลำดับยุคประวัติศาสตร์ไทย", svg:`<svg viewBox="0 0 340 110" width="100%" style="max-width:360px"><line x1="40" y1="55" x2="310" y2="55" stroke="#FFD0A3" stroke-width="6"/><circle cx="40" cy="55" r="11" fill="#FF9F40"/><circle cx="130" cy="55" r="11" fill="#FF9F40"/><circle cx="220" cy="55" r="11" fill="#FF9F40"/><circle cx="310" cy="55" r="11" fill="#FF9F40"/><text x="40" y="34" text-anchor="middle" font-size="11" font-weight="bold" fill="#E8702A">สุโขทัย</text><text x="130" y="34" text-anchor="middle" font-size="11" font-weight="bold" fill="#E8702A">อยุธยา</text><text x="220" y="34" text-anchor="middle" font-size="11" font-weight="bold" fill="#E8702A">ธนบุรี</text><text x="310" y="34" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#E8702A">รัตนโกสินทร์</text><text x="40" y="80" text-anchor="middle" font-size="8.5" fill="#6B6490">อักษรไทย</text><text x="130" y="80" text-anchor="middle" font-size="8.5" fill="#6B6490">กรุงเก่า</text><text x="220" y="80" text-anchor="middle" font-size="8.5" fill="#6B6490">พระเจ้าตาก</text><text x="310" y="80" text-anchor="middle" font-size="8.5" fill="#6B6490">กรุงเทพฯ</text></svg>`,
+   b:`เรียงตามยุค: <b>สุโขทัย</b> (พ่อขุนรามคำแหง ประดิษฐ์อักษรไทย) → <b>อยุธยา</b> → <b>ธนบุรี</b> (พระเจ้าตากสินกู้เอกราช) → <b>รัตนโกสินทร์</b> (กรุงเทพฯ ปัจจุบัน)`},
+  {t:"🇹🇭 ธงไตรรงค์", svg:`<svg viewBox="0 0 320 168" width="100%" style="max-width:300px"><rect x="40" y="20" width="200" height="24" fill="#A51931"/><rect x="40" y="44" width="200" height="24" fill="#F4F5F8" stroke="#eee"/><rect x="40" y="68" width="200" height="34" fill="#2D2A4A"/><rect x="40" y="102" width="200" height="24" fill="#F4F5F8" stroke="#eee"/><rect x="40" y="126" width="200" height="24" fill="#A51931"/><text x="250" y="36" font-size="11" fill="#A51931" font-weight="bold">ชาติ</text><text x="250" y="60" font-size="11" fill="#6B6490" font-weight="bold">ศาสนา</text><text x="250" y="83" font-size="10" fill="#2D2A4A" font-weight="bold">พระมหา</text><text x="250" y="95" font-size="10" fill="#2D2A4A" font-weight="bold">กษัตริย์</text></svg>`,
+   b:`ธงชาติไทย (ไตรรงค์) มี 3 สี:<br><b>แดง</b> = ชาติ &nbsp; <b>ขาว</b> = ศาสนา &nbsp; <b>น้ำเงิน</b> = พระมหากษัตริย์<br>สีน้ำเงินอยู่ตรงกลางและเป็นแถบใหญ่ที่สุด`},
+  {t:"🧭 ทิศทั้ง 4", svg:`<svg viewBox="0 0 200 178" width="100%" style="max-width:220px"><line x1="100" y1="26" x2="100" y2="156" stroke="#FFD0A3" stroke-width="4"/><line x1="34" y1="90" x2="166" y2="90" stroke="#FFD0A3" stroke-width="4"/><polygon points="100,16 92,34 108,34" fill="#FF6B6B"/><text x="100" y="48" text-anchor="middle" font-size="13" font-weight="bold" fill="#FF6B6B">เหนือ</text><text x="100" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#5B3FC0">ใต้</text><text x="196" y="86" text-anchor="end" font-size="11" font-weight="bold" fill="#5B3FC0">ตะวันออก</text><text x="4" y="86" font-size="11" font-weight="bold" fill="#5B3FC0">ตะวันตก</text><text x="100" y="104" text-anchor="middle" font-size="8" fill="#6B6490">☀ ขึ้นทางออก</text><circle cx="100" cy="90" r="6" fill="#FF9F40"/></svg>`,
+   b:`ทิศหลักมี 4 ทิศ: <b>เหนือ ใต้ ตะวันออก ตะวันตก</b><br>พระอาทิตย์ <b>ขึ้นทางทิศตะวันออก ตกทางทิศตะวันตก</b><br>ถ้าหันหน้าไปทางทิศเหนือ ขวามือคือทิศตะวันออก`}
+ ],
+ tips:[
+  "ลำดับยุคไทย: สุโขทัย → อยุธยา → ธนบุรี → รัตนโกสินทร์",
+  "อริยสัจ 4: ทุกข์(ปัญหา) → สมุทัย(เหตุ) → นิโรธ(ดับทุกข์) → มรรค(วิธีปฏิบัติ)",
+  "needs(จำเป็น)=ปัจจัย 4 ขาดไม่ได้ / wants(ต้องการ)=ของฟุ่มเฟือย มีก็ดีไม่มีก็อยู่ได้",
+  "อาเซียน 10 ประเทศ ก่อตั้ง พ.ศ.2510 ที่กรุงเทพฯ"],
+ qs:[
+  {q:"เมืองหลวงของประเทศไทยคือจังหวัดใด?",c:["กรุงเทพมหานคร","เชียงใหม่","ภูเก็ต","ขอนแก่น"],a:0,d:"e",topic:"ภูมิศาสตร์",s:"กรุงเทพมหานครเป็นเมืองหลวงและศูนย์กลางการปกครองของไทย",t:"เมืองหลวง=ที่ตั้งรัฐบาลและหน่วยงานราชการสำคัญ"},
+  {q:"ธงชาติไทยมีกี่สี?",c:["3 สี","2 สี","4 สี","5 สี"],a:0,d:"e",topic:"หน้าที่พลเมือง",s:"ธงไตรรงค์มี 3 สี: แดง ขาว น้ำเงิน",t:"แดง=ชาติ, ขาว=ศาสนา, น้ำเงิน=พระมหากษัตริย์"},
+  {q:"พระอาทิตย์ขึ้นทางทิศใด?",c:["ทิศตะวันออก","ทิศตะวันตก","ทิศเหนือ","ทิศใต้"],a:0,d:"e",topic:"ภูมิศาสตร์",s:"พระอาทิตย์ขึ้นทางทิศตะวันออก ตกทางทิศตะวันตก",t:"ตื่นเช้าหันหน้าหาพระอาทิตย์=ทิศตะวันออก"},
+  {q:"ศีลข้อที่ 1 ในศีล 5 คือข้อใด?",c:["ไม่ฆ่าสัตว์","ไม่ลักทรัพย์","ไม่พูดปด","ไม่ดื่มสุรา"],a:0,d:"e",topic:"พระพุทธศาสนา",s:"ศีลข้อ 1 คือเว้นจากการฆ่าสัตว์ตัดชีวิต",t:"เรียงศีล 5: ไม่ฆ่า-ไม่ลัก-ไม่ผิดในกาม-ไม่โกหก-ไม่ดื่มสุรา"},
+  {q:"ประชาคมอาเซียน (ASEAN) มีสมาชิกกี่ประเทศ?",c:["10 ประเทศ","5 ประเทศ","8 ประเทศ","12 ประเทศ"],a:0,d:"e",topic:"อาเซียน",s:"อาเซียนมีสมาชิก 10 ประเทศ",t:"ไทย ลาว กัมพูชา เวียดนาม เมียนมา มาเลเซีย สิงคโปร์ อินโดนีเซีย บรูไน ฟิลิปปินส์"},
+  {q:"ทวีปใดมีขนาดใหญ่ที่สุดในโลก?",c:["เอเชีย","แอฟริกา","ยุโรป","อเมริกาเหนือ"],a:0,d:"e",topic:"ภูมิศาสตร์โลก",s:"ทวีปเอเชียมีขนาดใหญ่ที่สุดและมีประชากรมากที่สุด",t:"ไทยอยู่ในทวีปเอเชีย (เอเชียตะวันออกเฉียงใต้)"},
+  {q:"เทศกาลสงกรานต์ ซึ่งถือเป็นวันปีใหม่ไทย ตรงกับเดือนใด?",c:["เมษายน","มกราคม","ธันวาคม","พฤศจิกายน"],a:0,d:"e",topic:"วัฒนธรรม",s:"สงกรานต์ตรงกับเดือนเมษายน (13–15 เม.ย.)",t:"สงกรานต์=เม.ย.(ปีใหม่ไทย), ลอยกระทง=เดือน 12 (พ.ย.)"},
+  {q:"สัญญาณไฟจราจรสีแดง หมายถึงอะไร?",c:["หยุด","ไปได้","เตรียมหยุด","เลี้ยวซ้าย"],a:0,d:"e",topic:"กฎหมาย",s:"ไฟแดง=หยุด, ไฟเหลือง=เตรียมหยุด/ชะลอ, ไฟเขียว=ไปได้",t:"กฎจราจรพื้นฐานที่ทุกคนต้องรู้เพื่อความปลอดภัย"},
+  {q:"อาณาจักรแรกของไทยที่มีหลักฐานชัดเจน และพ่อขุนรามคำแหงทรงประดิษฐ์อักษรไทย คือ?",c:["สุโขทัย","อยุธยา","ธนบุรี","รัตนโกสินทร์"],a:0,d:"m",topic:"ประวัติศาสตร์",s:"พ่อขุนรามคำแหงทรงประดิษฐ์ลายสือไทในสมัยสุโขทัย พ.ศ.1826",t:"จำลำดับยุค: สุโขทัย → อยุธยา → ธนบุรี → รัตนโกสินทร์"},
+  {q:"หลักธรรม 'อริยสัจ 4' ข้อแรกคือข้อใด?",c:["ทุกข์","สมุทัย","นิโรธ","มรรค"],a:0,d:"m",topic:"พระพุทธศาสนา",s:"อริยสัจ 4 เริ่มที่ทุกข์ คือสภาพปัญหาที่ต้องรู้ก่อน",t:"เรียง: ทุกข์(ปัญหา)-สมุทัย(เหตุ)-นิโรธ(ดับ)-มรรค(ทางปฏิบัติ)"},
+  {q:"ปัจจุบันประเทศไทยปกครองด้วยระบอบใด?",c:["ประชาธิปไตยอันมีพระมหากษัตริย์ทรงเป็นประมุข","สมบูรณาญาสิทธิราชย์","สังคมนิยม","คอมมิวนิสต์"],a:0,d:"m",topic:"หน้าที่พลเมือง",s:"ไทยเปลี่ยนการปกครอง พ.ศ.2475 เป็นประชาธิปไตยอันมีพระมหากษัตริย์ทรงเป็นประมุข",t:"พระมหากษัตริย์=ประมุขของรัฐ / นายกรัฐมนตรี=หัวหน้าฝ่ายบริหาร"},
+  {q:"ข้อใดเป็น 'ความต้องการ' (wants) ไม่ใช่ 'ความจำเป็น' (needs)?",c:["โทรศัพท์รุ่นใหม่ล่าสุด","อาหาร","น้ำดื่มสะอาด","ยารักษาโรค"],a:0,d:"m",topic:"เศรษฐศาสตร์",s:"อาหาร น้ำ ยา เป็นปัจจัยจำเป็น ส่วนโทรศัพท์รุ่นใหม่เป็นของฟุ่มเฟือย",t:"needs=ขาดไม่ได้(ปัจจัย 4) / wants=มีก็ดี ไม่มีก็อยู่ได้"},
+  {q:"ภาคใดของไทยมีพื้นที่ติดทะเลทั้งสองด้าน (อ่าวไทยและอันดามัน)?",c:["ภาคใต้","ภาคกลาง","ภาคเหนือ","ภาคตะวันออกเฉียงเหนือ"],a:0,d:"m",topic:"ภูมิศาสตร์",s:"ภาคใต้เป็นคาบสมุทร มีอ่าวไทยทางตะวันออกและอันดามันทางตะวันตก",t:"ภาคเหนือและอีสานเป็นแผ่นดินใน ไม่ติดทะเล"},
+  {q:"พระมหากษัตริย์พระองค์ใดทรงประกาศเลิกทาสในประเทศไทย?",c:["รัชกาลที่ 5","รัชกาลที่ 4","รัชกาลที่ 6","รัชกาลที่ 7"],a:0,d:"m",topic:"ประวัติศาสตร์",s:"รัชกาลที่ 5 (พระจุลจอมเกล้าเจ้าอยู่หัว) ทรงเลิกทาส",t:"ร.5 พระราชกรณียกิจเด่น: เลิกทาส ปฏิรูปการปกครอง สร้างทางรถไฟ"},
+  {q:"ประเทศไทยมีอาณาเขตติดกับประเทศเพื่อนบ้านในข้อใด 'ครบถูกต้อง'?",c:["ลาว เมียนมา กัมพูชา มาเลเซีย","ลาว จีน เวียดนาม","เมียนมา อินเดีย จีน","กัมพูชา เวียดนาม สิงคโปร์"],a:0,d:"m",topic:"ภูมิศาสตร์",s:"ไทยมีพรมแดนติด ลาว เมียนมา กัมพูชา และมาเลเซีย",t:"ไทยไม่ได้ติดเวียดนามหรือจีนโดยตรง มีลาว/เมียนมาคั่นอยู่"},
+  {q:"การออมเงินที่ดีควรทำอย่างไร?",c:["เก็บออมก่อน แล้วค่อยใช้ส่วนที่เหลือ","ใช้ให้หมดก่อน เหลือค่อยเก็บ","กู้เงินมาใช้ก่อน","ไม่ต้องวางแผน"],a:0,d:"m",topic:"เศรษฐศาสตร์",s:"หลักการออมที่ดีคือ 'ออมก่อนใช้' กันเงินส่วนหนึ่งไว้ก่อนเสมอ",t:"สูตร: รายได้ − เงินออม = รายจ่าย (ไม่ใช่ รายได้ − รายจ่าย = เงินออม)"},
+  {q:"กรุงศรีอยุธยาเสียกรุงแก่พม่าครั้งที่ 2 และสิ้นสุดอาณาจักร ในปี พ.ศ. ใด?",c:["พ.ศ. 2310","พ.ศ. 2112","พ.ศ. 2475","พ.ศ. 1893"],a:0,d:"h",topic:"ประวัติศาสตร์",s:"อยุธยาเสียกรุงครั้งที่ 2 ใน พ.ศ.2310 จากนั้นพระเจ้าตากสินทรงกู้เอกราชและตั้งกรุงธนบุรี",t:"เชื่อมเหตุการณ์: เสียกรุง 2310 → ธนบุรี → ตั้งกรุงเทพฯ 2325"},
+  {q:"วันสำคัญทางพระพุทธศาสนาที่ตรงกับวันประสูติ ตรัสรู้ และปรินิพพานของพระพุทธเจ้า คือวันใด?",c:["วันวิสาขบูชา","วันมาฆบูชา","วันอาสาฬหบูชา","วันเข้าพรรษา"],a:0,d:"h",topic:"พระพุทธศาสนา",s:"วันวิสาขบูชาตรงกับทั้ง 3 เหตุการณ์ (ขึ้น 15 ค่ำ เดือน 6)",t:"วิสาขบูชา=3 เหตุการณ์, มาฆบูชา=โอวาทปาฏิโมกข์, อาสาฬหบูชา=ปฐมเทศนา"},
+  {q:"ข้าราชการตำแหน่งใดเป็นหัวหน้าราชการส่วนภูมิภาคในจังหวัด ที่มาจากการ 'แต่งตั้ง'?",c:["ผู้ว่าราชการจังหวัด","นายกเทศมนตรี","นายก อบจ.","กำนัน"],a:0,d:"h",topic:"หน้าที่พลเมือง",s:"ผู้ว่าราชการจังหวัดเป็นหัวหน้าราชการส่วนภูมิภาค มาจากการแต่งตั้ง",t:"แต่งตั้ง=ผู้ว่าฯ นายอำเภอ / เลือกตั้ง=นายก อบจ. นายกเทศมนตรี กำนัน ผู้ใหญ่บ้าน"},
+  {q:"แนวคิด 'เศรษฐกิจพอเพียง' ที่เน้นความพอประมาณและมีเหตุผล เป็นพระราชดำริของพระมหากษัตริย์พระองค์ใด?",c:["รัชกาลที่ 9","รัชกาลที่ 5","รัชกาลที่ 6","รัชกาลที่ 8"],a:0,d:"h",topic:"เศรษฐศาสตร์",s:"ปรัชญาเศรษฐกิจพอเพียงเป็นพระราชดำริของรัชกาลที่ 9",t:"3 ห่วง: พอประมาณ มีเหตุผล มีภูมิคุ้มกัน / 2 เงื่อนไข: ความรู้ คุณธรรม"},
+  {q:"มหาสมุทรใดมีขนาดใหญ่ที่สุดในโลก?",c:["มหาสมุทรแปซิฟิก","มหาสมุทรแอตแลนติก","มหาสมุทรอินเดีย","มหาสมุทรอาร์กติก"],a:0,d:"h",topic:"ภูมิศาสตร์โลก",s:"มหาสมุทรแปซิฟิกใหญ่ที่สุด อยู่ระหว่างทวีปเอเชียกับอเมริกา",t:"แปซิฟิกใหญ่สุดและลึกสุด ไทยอยู่ใกล้แปซิฟิกผ่านทะเลจีนใต้"},
+  {q:"ตามกฎหมายไทย เยาวชนต้องทำบัตรประจำตัวประชาชนใบแรกเมื่ออายุครบกี่ปี?",c:["7 ปี","15 ปี","18 ปี","13 ปี"],a:0,d:"h",topic:"กฎหมาย",s:"ปัจจุบันกำหนดให้ทำบัตรประชาชนเมื่ออายุครบ 7 ปีบริบูรณ์",t:"จำเลขสำคัญ: ทำบัตร ปชช.=7 ปี, เลือกตั้งได้=18 ปี, บรรลุนิติภาวะ=20 ปี"}
+ ]}
+};
+
+const BADGES = [
+  {id:"first_step", e:"🌱", n:"ก้าวแรก"},
+  {id:"perfect",    e:"💯", n:"เพอร์เฟกต์"},
+  {id:"fire5",      e:"🔥", n:"สตรีคไฟลุก"},
+  {id:"sharp",      e:"🎯", n:"แม่นยำ 80%"},
+  {id:"explorer",   e:"🧭", n:"นักสำรวจ 5 วิชา"},
+  {id:"star30",     e:"🏆", n:"นักล่าดาว"},
+  {id:"rising",     e:"⭐", n:"ดาวรุ่ง Lv.3"},
+  {id:"timed",      e:"⏱️", n:"นักสู้เวลา"},
+  {id:"hardwin",    e:"💎", n:"พิชิตด่านยาก"},
+  {id:"scholar",    e:"🎓", n:"ยอดนักเรียน"}
+];
+
+const DIFF_LABEL={e:"ง่าย", m:"ปานกลาง", h:"ยาก"};
+const DIFF_TIME={e:40, m:50, h:70};
+
+/* ============================================================
+   STORAGE — ใช้ได้ทั้งใน Claude / โฮสต์เองบนเว็บ (localStorage) / ในเครื่อง
+   *** ส่วนนี้คือจุดที่จะแก้เป็น Supabase ในอนาคต (ดูคู่มือ) ***
+   ============================================================ */
+const KEY="triam_quest_state_v2";
+async function storageGet(key){
+  try{ if(window.storage && window.storage.get){ const r=await window.storage.get(key); if(r) return r.value; } }catch(e){}
+  try{ return localStorage.getItem(key); }catch(e){}
+  return null;
+}
+async function storageSet(key,val){
+  try{ if(window.storage && window.storage.set){ await window.storage.set(key,val); return; } }catch(e){}
+  try{ localStorage.setItem(key,val); }catch(e){}
+}
+
+/* ============================================================ STATE ============================================================ */
+let state = freshState();
+function freshState(){
+  return { name:"", xp:0, stars:0, badges:[], streak:1, totalCorrect:0, totalQuizzes:0, attempted:[], subj:{}, topicStats:{} };
+}
+function levelOf(xp){ return Math.floor(xp/100)+1; }
+async function loadState(){ try{ const v=await storageGet(KEY); if(v) state=Object.assign(freshState(), JSON.parse(v)); }catch(e){} }
+async function saveState(){ await storageSet(KEY, JSON.stringify(state)); }
+
+/* ============================================================ HOME ============================================================ */
+function totalQuestions(){ return Object.values(SUBJECTS).reduce((s,x)=>s+x.qs.length,0); }
+function renderTop(){
+  document.getElementById('uname').textContent = state.name || "นักเรียน";
+  const lv=levelOf(state.xp);
+  document.getElementById('lvpill').textContent="Lv."+lv;
+  const into=state.xp%100;
+  document.getElementById('xpfill').style.width=into+"%";
+  document.getElementById('xptext').textContent=into+" / 100 XP  (เหลืออีก "+(100-into)+" เลื่อนระดับ)";
+  document.getElementById('stStars').textContent=state.stars;
+  document.getElementById('stBadges').textContent=state.badges.length;
+  document.getElementById('stStreak').textContent=state.streak;
+  document.getElementById('globalReset').style.display=state.totalQuizzes>0?"block":"none";
+}
+function renderHome(){
+  renderTop();
+  document.getElementById('totalQ').textContent=totalQuestions();
+  const g=document.getElementById('subjGrid'); g.innerHTML="";
+  Object.entries(SUBJECTS).forEach(([id,s])=>{
+    const sp=state.subj[id]||{answered:0,correct:0,bestStars:0};
+    const pct=sp.answered?Math.round(sp.correct/Math.max(sp.answered,1)*100):0;
+    const card=document.createElement('button'); card.className="subj"; card.onclick=()=>openSubject(id);
+    card.innerHTML=`<div class="ic" style="background:${s.color}">${s.emoji}</div>
+      <h3>${s.name}</h3><div class="meta">${s.qs.length} ข้อ • แม่นยำ ${pct}%</div>
+      <div class="pbar"><div class="pfill" style="width:${pct}%;background:${s.color}"></div></div>
+      <div class="ministars">${starStr(sp.bestStars)}</div>`;
+    g.appendChild(card);
+  });
+  const strip=document.getElementById('badgeStrip'); strip.innerHTML="";
+  BADGES.forEach(b=>{ const on=state.badges.includes(b.id);
+    const c=document.createElement('div'); c.className="bchip"+(on?" on":"");
+    c.innerHTML=`<div class="be">${b.e}</div><small>${b.n}</small>`; strip.appendChild(c); });
+  document.getElementById('badgeCount').textContent=`(${state.badges.length}/${BADGES.length})`;
+}
+function starStr(n){ return "★★★".slice(0,n)+"☆☆☆".slice(0,3-n); }
+
+/* ============================================================ SUBJECT ============================================================ */
+let currentSubjectId=null, selectedDiff="all", timedMode=false;
+function openSubject(id){
+  currentSubjectId=id; selectedDiff="all";
+  const s=SUBJECTS[id];
+  document.getElementById('subhead').style.background=`linear-gradient(135deg, ${s.color}, ${shade(s.color)})`;
+  document.getElementById('subhead').innerHTML=`<h1>${s.emoji} ${s.name}</h1><p>ฝึกข้อสอบ ${s.qs.length} ข้อ พร้อมเฉลยและเทคนิคทุกข้อ</p>`;
+  const ul=document.getElementById('tipList'); ul.innerHTML="";
+  s.tips.forEach(t=>{ const li=document.createElement('li'); li.textContent=t; ul.appendChild(li); });
+  const lw=document.getElementById('lessonWrap'); lw.innerHTML="";
+  (s.lessons||[]).forEach(ls=>{ const d=document.createElement('div'); d.className="lesson";
+    d.innerHTML=`<h3>${ls.t}</h3><div class="lsvg">${ls.svg}</div><div class="lbody">${ls.b}</div>`; lw.appendChild(d); });
+  document.querySelectorAll('#subject .chip').forEach(c=>c.classList.toggle('active', c.dataset.diff==="all"));
+  document.getElementById('timedToggle').checked=false; timedMode=false;
+  document.getElementById('startQuizBtn').onclick=()=>startQuiz(id);
+  updatePoolInfo(); go('subject');
+}
+function setDiff(d, el){ selectedDiff=d;
+  document.querySelectorAll('#subject .chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active'); updatePoolInfo(); }
+function filteredQs(id){ const all=SUBJECTS[id].qs; return selectedDiff==="all"?all:all.filter(q=>q.d===selectedDiff); }
+function updatePoolInfo(){ const n=filteredQs(currentSubjectId).length; const take=Math.min(10,n);
+  document.getElementById('poolInfo').textContent=`มี ${n} ข้อในระดับนี้ • จะสุ่มมา ${take} ข้อ`; }
+document.getElementById('timedToggle').addEventListener('change',e=>{ timedMode=e.target.checked; });
+function shade(hex){ const n=parseInt(hex.slice(1),16); let r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+  r=Math.round(r*.72); g=Math.round(g*.72); b=Math.round(b*.72);
+  return "#"+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+
+/* ============================================================ QUIZ ============================================================ */
+let quiz=null, timerId=null;
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function buildQ(raw, subjId){ const correctText=raw.c[raw.a]; const choices=shuffle(raw.c);
+  return {subj:subjId, q:raw.q, choices, ans:choices.indexOf(correctText), s:raw.s, t:raw.t, d:raw.d, topic:raw.topic}; }
+function startQuiz(subjId){ const pool=filteredQs(subjId);
+  const picked=shuffle(pool).slice(0,Math.min(10,pool.length)).map(r=>buildQ(r,subjId));
+  quiz={ list:picked, i:0, correct:0, streak:0, best:0, mixed:false, subjId, timed:timedMode, diff:selectedDiff };
+  go('quiz'); renderQ(); }
+function startDaily(timed){ let pool=[];
+  Object.keys(SUBJECTS).forEach(id=>{ shuffle(SUBJECTS[id].qs).slice(0,2).forEach(r=>pool.push(buildQ(r,id))); });
+  pool=shuffle(pool).slice(0,10);
+  quiz={ list:pool, i:0, correct:0, streak:0, best:0, mixed:true, subjId:null, timed:!!timed, diff:"all" };
+  go('quiz'); renderQ(); }
+function clearTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+function startTimer(sec){ clearTimer();
+  const el=document.getElementById('timer'), nEl=document.getElementById('timerN');
+  el.classList.add('show'); el.classList.remove('warn'); let left=sec; nEl.textContent=left;
+  timerId=setInterval(()=>{ left--; nEl.textContent=left; if(left<=10) el.classList.add('warn');
+    if(left<=0){ clearTimer(); timeUp(); } },1000); }
+function renderQ(){
+  const q=quiz.list[quiz.i], s=SUBJECTS[q.subj];
+  document.getElementById('qcount').textContent=`ข้อ ${quiz.i+1}/${quiz.list.length}`;
+  document.getElementById('qprog').style.width=(quiz.i/quiz.list.length*100)+"%";
+  const tag=document.getElementById('qtag'); tag.textContent=s.emoji+" "+s.name; tag.style.background=s.color;
+  document.getElementById('qdiff').textContent="ระดับ"+DIFF_LABEL[q.d];
+  document.getElementById('qtext').textContent=q.q;
+  const flame=document.getElementById('qflame'); flame.classList.toggle('show', quiz.streak>=2);
+  document.getElementById('qflameN').textContent=quiz.streak;
+  const ow=document.getElementById('opts'); ow.innerHTML="";
+  const keys=["ก","ข","ค","ง"];
+  q.choices.forEach((c,idx)=>{ const b=document.createElement('button'); b.className="opt";
+    b.innerHTML=`<span class="key">${keys[idx]}</span><span>${c}</span>`; b.onclick=()=>answer(idx,b); ow.appendChild(b); });
+  document.getElementById('explain').className="explain";
+  document.getElementById('nextBtn').style.display="none";
+  const tEl=document.getElementById('timer');
+  if(quiz.timed){ startTimer(DIFF_TIME[q.d]||50); } else { clearTimer(); tEl.classList.remove('show'); }
+}
+function recordTopic(q, right){ const ts=state.topicStats[q.subj]||(state.topicStats[q.subj]={});
+  const e=ts[q.topic]||(ts[q.topic]={a:0,c:0}); e.a++; if(right) e.c++; }
+function lockOptions(correctIdx, chosenIdx){ const opts=[...document.querySelectorAll('#opts .opt')];
+  opts.forEach((o,i)=>{ o.disabled=true; if(i===correctIdx)o.classList.add('correct');
+    if(chosenIdx!=null && i===chosenIdx && chosenIdx!==correctIdx) o.classList.add('wrong'); }); }
+function reveal(q, right, head){
+  const ex=document.getElementById('explain');
+  document.getElementById('verdict').innerHTML=head;
+  document.getElementById('verdict').style.color=right?"var(--ok)":"var(--no)";
+  document.getElementById('sol').innerHTML="<b>เฉลย:</b> "+q.s;
+  document.getElementById('tech').innerHTML="<b>💡 เทคนิค:</b> "+q.t;
+  ex.classList.add('show');
+  const nb=document.getElementById('nextBtn'); nb.style.display="inline-flex";
+  nb.textContent=quiz.i===quiz.list.length-1?"ดูผลคะแนน 🏁":"ข้อต่อไป →";
+}
+function answer(idx, btn){ clearTimer();
+  const q=quiz.list[quiz.i]; const right=idx===q.ans;
+  lockOptions(q.ans, idx); recordTopic(q, right);
+  if(right){ quiz.correct++; quiz.streak++; quiz.best=Math.max(quiz.best,quiz.streak); beep(true); miniConfetti(); }
+  else { quiz.streak=0; beep(false); }
+  reveal(q, right, right?"✅ ถูกต้อง! เก่งมาก":"❌ ยังไม่ใช่ ลองดูวิธีคิดนะ");
+  setMascot(right?"happy":"think"); }
+function timeUp(){ const q=quiz.list[quiz.i];
+  lockOptions(q.ans, null); recordTopic(q, false); quiz.streak=0; beep(false);
+  reveal(q, false, "⏰ หมดเวลา! มาดูวิธีคิดกัน"); setMascot("think"); }
+function nextQ(){ if(quiz.i<quiz.list.length-1){ quiz.i++; renderQ(); window.scrollTo({top:0,behavior:'smooth'}); } else finishQuiz(); }
+
+/* ============================================================ RESULT ============================================================ */
+function finishQuiz(){ clearTimer();
+  const total=quiz.list.length, correct=quiz.correct; const pct=Math.round(correct/total*100);
+  const stars=pct>=90?3:pct>=70?2:pct>=50?1:0;
+  let xpGain=correct*10+(quiz.best>=3?15:0)+stars*5+(quiz.timed?10:0);
+  const prevLevel=levelOf(state.xp);
+  state.xp+=xpGain; state.stars+=stars; state.totalQuizzes++; state.totalCorrect+=correct;
+  if(!quiz.mixed){ const id=quiz.subjId; const sp=state.subj[id]||{answered:0,correct:0,bestStars:0};
+    sp.answered+=total; sp.correct+=correct; sp.bestStars=Math.max(sp.bestStars,stars); state.subj[id]=sp;
+    if(!state.attempted.includes(id)) state.attempted.push(id);
+  } else { Object.keys(SUBJECTS).forEach(id=>{ if(!state.attempted.includes(id)) state.attempted.push(id); }); }
+  const newBadges=[]; const add=id=>{ if(!state.badges.includes(id)){ state.badges.push(id); newBadges.push(id); } };
+  add("first_step");
+  if(correct===total) add("perfect");
+  if(quiz.best>=5) add("fire5");
+  if(total>=5 && pct>=80) add("sharp");
+  if(state.attempted.length>=5) add("explorer");
+  if(state.stars>=30) add("star30");
+  if(levelOf(state.xp)>=3) add("rising");
+  if(quiz.timed) add("timed");
+  if(quiz.diff==="h" && pct>=70) add("hardwin");
+  if(state.totalCorrect>=40) add("scholar");
+  const newLevel=levelOf(state.xp); saveState();
+  const goodish=pct>=70;
+  document.getElementById('rEmoji').textContent=pct>=90?"🏆":pct>=70?"🎉":pct>=50?"💪":"📘";
+  document.getElementById('rTitle').textContent=pct>=90?"สุดยอดไปเลย!":pct>=70?"เยี่ยมมาก!":pct>=50?"เก่งขึ้นแล้ว!":"สู้ ๆ ฝึกต่อนะ!";
+  document.getElementById('rScore').textContent=`ตอบถูก ${correct} จาก ${total} ข้อ`+(quiz.timed?" • โหมดจับเวลา":"");
+  document.getElementById('rStars').textContent=starStr(stars);
+  document.getElementById('rxp').textContent="+"+xpGain;
+  document.getElementById('racc').textContent=pct+"%";
+  document.getElementById('rbest').textContent=quiz.best;
+  const uw=document.getElementById('unlocked'); uw.innerHTML="";
+  newBadges.forEach((id,k)=>{ const b=BADGES.find(x=>x.id===id);
+    const d=document.createElement('div'); d.className="u"; d.style.animationDelay=(k*0.12)+"s";
+    d.innerHTML=`<span style="font-size:22px">${b.e}</span> ปลดล็อก: ${b.n}`; uw.appendChild(d); });
+  document.getElementById('retryBtn').onclick = quiz.mixed ? (()=>startDaily(quiz.timed)) : (()=>startQuiz(quiz.subjId));
+  go('result'); renderTop();
+  if(goodish) bigConfetti();
+  if(newLevel>prevLevel) setTimeout(()=>showToast(`🎊 เลื่อนระดับเป็น Lv.${newLevel}!`),500);
+  setMascot(goodish?"happy":"think");
+}
+
+/* ============================================================ WEAKNESS ============================================================ */
+function accColor(p){ return p>=80?"#2BC4A8":p>=60?"#FFC23C":"#FF6B6B"; }
+function renderWeak(){
+  const body=document.getElementById('weakBody'); body.innerHTML="";
+  const has=Object.keys(state.topicStats).some(id=>Object.keys(state.topicStats[id]).length);
+  if(!has){ body.innerHTML=`<div class="wcard"><div class="emptybox">🦉 ยังไม่มีข้อมูลพอจะวิเคราะห์<br>ลองทำแบบฝึกหัดสัก 1–2 ชุดก่อนนะ แล้วกลับมาดูว่าหัวข้อไหนควรเน้นเป็นพิเศษ</div></div>`; return; }
+  Object.entries(SUBJECTS).forEach(([id,s])=>{
+    const ts=state.topicStats[id]; if(!ts||!Object.keys(ts).length) return;
+    let tot=0, cor=0;
+    const rows=Object.entries(ts).map(([topic,e])=>{ tot+=e.a; cor+=e.c; return {topic, a:e.a, c:e.c, p:Math.round(e.c/e.a*100)}; }).sort((x,y)=>x.p-y.p);
+    const acc=Math.round(cor/tot*100);
+    const weak=rows.filter(r=>r.p<70).slice(0,2).map(r=>r.topic);
+    const card=document.createElement('div'); card.className="wcard";
+    let html=`<div class="whead"><div class="wic" style="background:${s.color}">${s.emoji}</div>
+      <h3>${s.name}</h3><div class="wacc" style="color:${accColor(acc)}">${acc}%</div></div>`;
+    html += weak.length
+      ? `<div class="focus">🎯 ควรเน้นเป็นพิเศษ: <b>${weak.join(", ")}</b> — ลองกลับไปทบทวนเทคนิคแล้วฝึกซ้ำนะ</div>`
+      : `<div class="focus good">🌟 เยี่ยมมาก! ทุกหัวข้อในวิชานี้แม่นยำดี รักษาระดับไว้นะ</div>`;
+    rows.forEach(r=>{ html+=`<div class="trow"><div class="tname">${r.topic}</div>
+      <div class="tbar"><i style="width:${r.p}%;background:${accColor(r.p)}"></i></div>
+      <div class="tpct">${r.p}% (${r.c}/${r.a})</div></div>`; });
+    html+=`<div style="text-align:center;margin-top:12px"><button class="chip active" style="border:none" onclick="openSubject('${id}')">ฝึก ${s.name} →</button></div>`;
+    card.innerHTML=html; body.appendChild(card);
+  });
+}
+
+/* ============================================================ NAV + FX ============================================================ */
+function go(id){ if(id!=='quiz') clearTimer();
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='home') renderHome(); if(id==='weak') renderWeak();
+  window.scrollTo({top:0,behavior:'smooth'}); }
+const MASCOTS={idle:"🦉",happy:"🥳",think:"🤔"};
+function setMascot(m){ const el=document.getElementById('mascot'); el.textContent=MASCOTS[m]||"🦉"; if(m!=='idle') setTimeout(()=>el.textContent="🦉",2200); }
+function showToast(t){ const el=document.getElementById('toast'); el.innerHTML=t; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),2600); }
+const COLORS=["#FFC23C","#FF6B6B","#2BC4A8","#4D9DE0","#9B5DE5","#FF9F40"];
+function makeConfetti(n){ const box=document.getElementById('confettiBox');
+  for(let i=0;i<n;i++){ const c=document.createElement('div'); c.className="conf";
+    c.style.left=Math.random()*100+"vw"; c.style.background=COLORS[i%COLORS.length];
+    c.style.animationDuration=(1.6+Math.random()*1.4)+"s"; c.style.animationDelay=(Math.random()*0.3)+"s";
+    c.style.transform="rotate("+Math.random()*360+"deg)"; box.appendChild(c); setTimeout(()=>c.remove(),3200); } }
+function miniConfetti(){ makeConfetti(14); }
+function bigConfetti(){ makeConfetti(70); }
+let ac=null;
+function beep(ok){ try{ ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+  const o=ac.createOscillator(), g=ac.createGain(); o.connect(g); g.connect(ac.destination);
+  if(ok){ o.frequency.setValueAtTime(660,ac.currentTime); o.frequency.setValueAtTime(880,ac.currentTime+0.08); }
+  else { o.frequency.setValueAtTime(300,ac.currentTime); o.frequency.setValueAtTime(220,ac.currentTime+0.1); }
+  g.gain.setValueAtTime(0.08,ac.currentTime); g.gain.exponentialRampToValueAtTime(0.0001,ac.currentTime+0.25);
+  o.start(); o.stop(ac.currentTime+0.26); }catch(e){} }
+
+/* ============================================================ NAME + INIT ============================================================ */
+function saveName(){ const v=document.getElementById('nameInput').value.trim();
+  state.name=v||"นักเรียน"; document.getElementById('nameModal').classList.remove('show'); saveState(); renderHome(); }
+function resetAll(){ if(confirm("ต้องการล้างความก้าวหน้าทั้งหมดและเริ่มใหม่หรือไม่?")){
+  state=freshState(); saveState(); document.getElementById('nameInput').value="";
+  document.getElementById('nameModal').classList.add('show'); renderHome(); } }
+document.getElementById('nameInput').addEventListener('keydown',e=>{ if(e.key==='Enter') saveName(); });
+
+(async function init(){ await loadState(); renderHome();
+  if(!state.name) document.getElementById('nameModal').classList.add('show'); })();
+</script>
+</body>
+</html>
